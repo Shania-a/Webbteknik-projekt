@@ -44,16 +44,22 @@ function App() {
   }, []);
 
   return (
-    <>
-    <Test/>
+    <main>
     {nasaData ? (
-        <div>
-          <img src={nasaData.url} />
-        </div>
+       <div className="image-stage">
+       {/* Background Layer (Blurred) */}
+       <img src={nasaData.url} alt="" className="blur-bg" />
+       
+       {/* Foreground Layer (Sharp & Centered) */}
+       <img src={nasaData.url} alt={nasaData.title} className="sharp-fg" />
+     </div>
       ) : (
-        <img src='https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fimg.freepik.com%2Fpremium-vector%2Floading-symbol-vector_427757-728.jpg%3Fw%3D2000&f=1&nofb=1&ipt=081322b4315587828aa42c0487603103677eb4efe9993342aa78e1a8a9826472' style={{maxWidth: '100%'}}/>
+        <img id="nasaImage" src='https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fimg.freepik.com%2Fpremium-vector%2Floading-symbol-vector_427757-728.jpg%3Fw%3D2000&f=1&nofb=1&ipt=081322b4315587828aa42c0487603103677eb4efe9993342aa78e1a8a9826472' style={{maxWidth: '100%'}}/>
       )}
-    </>
+      <Test/>
+
+      {/* THE IMAGE CONTAINER */}
+    </main>
   )
 }
 
