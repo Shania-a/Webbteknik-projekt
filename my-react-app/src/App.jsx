@@ -6,9 +6,9 @@ import Test from './components/Test/Test.jsx'
 
 async function getAPIData(){
   const api_key = import.meta.env.VITE_NASA_API_KEY; 
-  const date = "";
-  const start = "2000-01-01";
-  const end = "2000-01-07";
+  const date = "2026-01-01";
+  // const start = "2000-01-01";
+  // const end = "2000-01-07";
 
 
   const url = date
