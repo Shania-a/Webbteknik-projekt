@@ -17,4 +17,6 @@ If you are developing a production application, we recommend using TypeScript wi
 
 ## mkdir tests + mkdir dist
 
+## npm install react-router-dom
+
 ## !Don't run this on Google Chrome for risk of freezing or lag!
