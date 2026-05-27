@@ -1,6 +1,7 @@
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
+import Buttons from '../../Buttons/Buttons.jsx';
 
 function NavbarTest() {
   return (
@@ -12,6 +13,9 @@ function NavbarTest() {
           <Nav className="me-auto">
             <Nav.Link href="#previous-game">Previous Game</Nav.Link>
             <Nav.Link href="#archive">Archive</Nav.Link>
+            <Buttons text="Home"></Buttons>
+            <Buttons text="Previous"></Buttons>
+            <Buttons text="Archive"></Buttons>
           </Nav>
         </Navbar.Collapse>
       </Container>

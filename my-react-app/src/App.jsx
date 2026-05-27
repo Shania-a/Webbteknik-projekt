@@ -7,6 +7,7 @@ import Col from 'react-bootstrap/Col';
 import Nav from 'react-bootstrap/Nav';
 import NavbarTest from './components/Test/NavbarTest/NavbarTest.jsx';
 import DailyImage from './components/DailyImage/DailyImage.jsx'
+import Buttons from './components/Buttons/Buttons.jsx';
 
 // Vi gör funktionen flexibel genom att tillåta att ett datum skickas med
 async function getAPIData(date = "") {
@@ -66,7 +67,7 @@ useEffect(() => {
       </Row>
       <Row>
         <Col>
-            <NavbarTest />
+            <NavbarTest></NavbarTest>
         </Col>
       </Row>
     </Container>
