@@ -20,3 +20,5 @@ If you are developing a production application, we recommend using TypeScript wi
 ## npm install react-router-dom
 
 ## !Don't run this on Google Chrome for risk of freezing or lag!
+
+## npm install react-bootstrap bootstrap
