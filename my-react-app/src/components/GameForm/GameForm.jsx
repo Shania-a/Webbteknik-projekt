@@ -10,7 +10,7 @@ function GameForm ({ onStartGame }) {
 
         if (username.trim().length > 0) {
            localStorage.setItem("game-username", username); 
-
+            //create new user as object with random ID
            onStartGame();
         } else {
             alert("Please enter a username to play!");
