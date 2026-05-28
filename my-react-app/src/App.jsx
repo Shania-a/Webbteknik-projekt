@@ -57,7 +57,6 @@ function App() {
         
         <Container style={{ marginTop: '20px' }}>
           <Row>
-            <Col><h1>Spacefullness</h1></Col>
           </Row>
           <Row>
             <Col>
