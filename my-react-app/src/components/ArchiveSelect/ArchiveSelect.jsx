@@ -24,6 +24,14 @@ export default function ArchiveSelect({ onDateSubmit }) {
         const formatDay = String(selectedDay).padStart(2, '0');
         const correctDate = `${selectedYear}-${formatMonth}-${formatDay}`;
 
+        const chosenDate = new Date(correctDate);
+        const today = new Date();
+
+        if (chosenDate > today) {
+            alert("You are not allowed to view the future!");
+            return; 
+        }
+
         console.log(correctDate);
         if (onDateSubmit) {
             onDateSubmit(correctDate);
