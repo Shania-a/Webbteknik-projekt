@@ -3,20 +3,26 @@ import { Container, Row, Col, Form, Button } from 'react-bootstrap';
 
 export default function ArchiveSelect({ onDateSubmit }) {
     const [selectedYear, setSelectedYear] = useState('2026');
-    const [selectedMonth, setSelectedMonth] = useState(0); 
+    const [selectedMonth, setSelectedMonth] = useState(0);
     const [selectedDay, setSelectedDay] = useState(1);
 
     const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-    
-    const totalDays = new Date(Number(selectedYear), selectedMonth + 1, 0).getDate();
+
     const days = [];
     for (let i = 1; i <= 31; i++) days.push(i);
-    
+
+    const currentYear = new Date().getFullYear();
+    const years = [];
+
+    for (let y = currentYear; y >= 1995; y--) {
+        years.push(y);
+    }
+
     const submitButton = () => {
         const formatMonth = String(selectedMonth + 1).padStart(2, '0');
         const formatDay = String(selectedDay).padStart(2, '0');
         const correctDate = `${selectedYear}-${formatMonth}-${formatDay}`;
-        
+
         console.log(correctDate);
     };
 
@@ -27,16 +33,18 @@ export default function ArchiveSelect({ onDateSubmit }) {
                 <Form.Label className="small fw-bold text-muted text-uppercase" style={{ letterSpacing: '0.5px' }}>
                     1. Select Year
                 </Form.Label>
-                <Form.Select 
+                <Form.Select
                     className="bg-dark text-light border-secondary form-select-sm"
                     value={selectedYear}
                     onChange={(e) => {
                         setSelectedYear(e.target.value);
                     }}
                 >
-                    <option value="2026">2026</option>
-                    <option value="2025">2025</option>
-                    <option value="2024">2024</option>
+                    {years.map((year) => (
+                        <option key={year} value={year}>
+                            {year}
+                        </option>
+                    ))}
                 </Form.Select>
             </Form.Group>
 
@@ -52,9 +60,9 @@ export default function ArchiveSelect({ onDateSubmit }) {
                                 <Button
                                     variant={isMonthSelected ? "primary" : "outline-light"}
                                     className="w-100 py-1 text-light btn-sm"
-                                    style={{ 
-                                        backgroundColor: isMonthSelected ? '' : 'rgba(255, 255, 255, 0.03)', 
-                                        fontSize: '0.85rem' 
+                                    style={{
+                                        backgroundColor: isMonthSelected ? '' : 'rgba(255, 255, 255, 0.03)',
+                                        fontSize: '0.85rem'
                                     }}
                                     onClick={() => {
                                         setSelectedMonth(index);
@@ -99,7 +107,7 @@ export default function ArchiveSelect({ onDateSubmit }) {
                     variant="primary"
                     className="fw-bold px-4 py-2 btn-sm"
                     style={{ fontSize: '0.9rem' }}
-                    onClick={submitButton} 
+                    onClick={submitButton}
                 >
                     Clicko
                 </Button>
