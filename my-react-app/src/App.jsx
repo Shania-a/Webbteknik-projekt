@@ -9,8 +9,9 @@ import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 
 import Navbar from './components/Navbar/Navbar.jsx';
-import DailyImage from './components/DailyImage/DailyImage.jsx'
+import DailyImage from './components/DailyImage/DailyImage.jsx';
 import Archive from './components/Archive/Archive.jsx'; 
+import AboutSection from './components/About/About.jsx';
 
 // API-hämtningen (Helt oförändrad och superbra)
 async function getAPIData(date = "") {
@@ -45,7 +46,7 @@ function App() {
           style={{ maxWidth: '150px' }} 
           alt="Laddar..."
         />
-        <p>Hämtar rymden hehe...</p>
+        <p>Loading space...</p>
       </div>
     );
   }
@@ -65,7 +66,12 @@ function App() {
           </Row>
           <Row>
             <Col style={{ marginTop: '20px' }}>
-              <Outlet /> 
+              <Outlet />
+              <Row className="w-100 justify-content-center">
+                <Col md={8} className="d-flex justify-content-center">
+                <AboutSection data={nasaData} />
+                </Col>
+              </Row>
             </Col>
           </Row>
           
