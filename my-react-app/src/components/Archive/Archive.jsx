@@ -8,8 +8,9 @@ export default function ArchiveSelect({ onDateSubmit }) {
 
     const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
+    const totalDays = new Date(Number(selectedYear), selectedMonth + 1, 0).getDate();
     const days = [];
-    for (let i = 1; i <= 31; i++) days.push(i);
+    for (let i = 1; i <= totalDays; i++) days.push(i);
 
     const currentYear = new Date().getFullYear();
     const years = [];
