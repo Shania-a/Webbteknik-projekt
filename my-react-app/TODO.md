@@ -10,6 +10,7 @@ Achive functionality:
 Basic account in local storage:
     Players can see time on a image
     Players can see what imaegs they completed
+    Switch players, so each user can save their scores
 
 Color check the img to get fitting hidden objects
 
