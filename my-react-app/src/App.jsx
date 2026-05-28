@@ -8,9 +8,8 @@ import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 
 import Navbar from './components/Navbar/Navbar.jsx';
-import DailyImage from './components/DailyImage/DailyImage.jsx';
-import Archive from './components/Archive/Archive.jsx'; 
-import AboutSection from './components/About/About.jsx';
+import DailyImage from './components/DailyImage/DailyImage.jsx'
+import ArchiveSelect from './components/ArchiveSelect/ArchiveSelect.jsx'; 
 
 // API-hämtningen (Helt oförändrad och superbra)
 async function getAPIData(date = "") {
@@ -39,19 +38,6 @@ function App() {
     startFetch();
   }, []);
 
-  // Snygga laddningsskärmen
-  if (loading) {
-    return (
-      <div className="loading-screen">
-        <img 
-          src='https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fimg.freepik.com%2Fpremium-vector%2Floading-symbol-vector_427757-728.jpg%3Fw%3D2000&f=1&nofb=1&ipt=081322b4315587828aa42c0487603103677eb4efe9993342aa78e1a8a9826472' 
-          style={{ maxWidth: '150px' }} 
-          alt="Laddar..."
-        />
-        <p>Loading space...</p>
-      </div>
-    );
-  }
   const handleArchiveSubmit = async (dateString) => {
     setArchiveLoading(true);
     try {
@@ -80,12 +66,7 @@ function App() {
           </Row>
           <Row>
             <Col style={{ marginTop: '20px' }}>
-              <Outlet />
-              <Row className="w-100 justify-content-center">
-                <Col md={8} className="d-flex justify-content-center">
-                <AboutSection data={nasaData} />
-                </Col>
-              </Row>
+              <Outlet /> 
             </Col>
           </Row>
           

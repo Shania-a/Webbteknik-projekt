@@ -36,6 +36,10 @@ const DailyImage = ({ data }) => {
         </div>
 
       </div>
+
+      <div className="image-explanation">
+        <p>{data.explanation}</p>
+      </div>
     </div>
   );
 };
