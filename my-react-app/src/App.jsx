@@ -8,7 +8,7 @@ import Col from 'react-bootstrap/Col';
 
 import Container from 'react-bootstrap/Container';
 
-import NavbarTest from './components/Test/NavbarTest/NavbarTest.jsx';
+import Navbar from './components/Navbar/Navbar.jsx';
 import DailyImage from './components/DailyImage/DailyImage.jsx'
 import Archive from './components/Archive/Archive.jsx'; 
 
@@ -61,7 +61,7 @@ function App() {
           </Row>
           <Row>
             <Col>
-              <NavbarTest />
+              <Navbar />
             </Col>
           </Row>
           <Row>
