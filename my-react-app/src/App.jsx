@@ -1,11 +1,10 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { RouterProvider, createBrowserRouter, Outlet } from 'react-router-dom';
 
 import './App.css';
 
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-
 import Container from 'react-bootstrap/Container';
 
 import Navbar from './components/Navbar/Navbar.jsx';
@@ -26,6 +25,9 @@ async function getAPIData(date = "") {
 function App() {
   const [nasaData, setNasaData] = useState(null);
   const [loading, setLoading] = useState(true);
+
+  const [archiveData, setArchiveData] = useState(null);
+  const [archiveLoading, setArchiveLoading] = useState(false);
 
   useEffect(() => {
     async function startFetch() {
@@ -50,8 +52,20 @@ function App() {
       </div>
     );
   }
+  const handleArchiveSubmit = async (dateString) => {
+    setArchiveLoading(true);
+    try {
+      const result = await getAPIData(dateString); 
+      setArchiveData(result); 
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setArchiveLoading(false);
+    }
+  };
 
-  const router = createBrowserRouter([
+  const router = useMemo(() => {
+    return createBrowserRouter([
     {
       path: "/",
       element: (
@@ -86,19 +100,38 @@ function App() {
             </>
           )
         },
-        {
-          path: "/arkiv",
-          element: (
-            <Row>
-              <Col className="text-center">
-                <Archive />
-              </Col>
-            </Row>
-          )
-        }
-      ]
-    }
-  ]);
+          {
+            path: "/arkiv",
+            element: (
+              <Row>
+                <Col className="text-center">
+                  {archiveLoading && <p className="text-light mt-4">Hämtar rymden hehe...</p>}
+                  
+                  {!archiveLoading && archiveData && <DailyImage data={archiveData} />}
+                  <ArchiveSelect onDateSubmit={handleArchiveSubmit} />
+                </Col>
+              </Row>
+            )
+          }
+        ]
+      }
+    ]);
+  }, [nasaData, archiveData, archiveLoading]); 
+
+  // Snygga laddningsskärmen
+  if (loading) {
+    return (
+      <div className="loading-screen">
+        <img 
+          src='https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fimg.freepik.com%2Fpremium-vector%2Floading-symbol-vector_427757-728.jpg%3Fw%3D2000&f=1&nofb=1&ipt=081322b4315587828aa42c0487603103677eb4efe9993342aa78e1a8a9826472' 
+          style={{ maxWidth: '150px' }} 
+          alt="Laddar..."
+        />
+        <p>Hämtar rymden hehe...</p>
+      </div>
+    );
+  }
+
   return <RouterProvider router={router} />;
 }
 
