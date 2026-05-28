@@ -63,6 +63,43 @@ body {
   max-height: 95%;
 }
 
+/*Play-icon CSS*/
+.play-overlay{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /*So it gets placed in the middle*/
+  z-index: 10;
+}
+
+.play-icon{
+  color: rgb(255, 255, 255);
+  font-size: 100px;
+  transition: transform 0.2s ease;
+  display: inline-block;
+  text-shadow: 1px 1px 20px #000000;
+}
+
+.play-icon:hover{
+  transform: scale(1.15); 
+  cursor: pointer;
+  text-shadow: 1px 1px 20px #000000;
+}
+
+.is-blurred {
+  filter: blur(15px);
+}
+
+/*For the form-overlay*/
+.form-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 20;
+  min-width: 300px;
+}
+
 /* Main bilden */
 .sharp-fg {
   max-width: 100%; 
