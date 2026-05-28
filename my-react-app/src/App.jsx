@@ -50,25 +50,6 @@ function App() {
     );
   }
 
-  return (
-    <Container>
-      <Row>
-        <Col><h1>Spacefullness</h1></Col>
-      </Row>
-      <Row>
-        <Col>
-             {nasaData && <DailyImage data={nasaData} />}
-        </Col>
-      </Row>
-      <Row>
-        <Col>
-            <NavbarTest></NavbarTest>
-        </Col>
-      </Row>
-    </Container>
-    
-    
-  );
   const router = createBrowserRouter([
     {
       path: "/",
