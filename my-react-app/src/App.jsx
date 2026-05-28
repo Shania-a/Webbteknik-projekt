@@ -9,7 +9,7 @@ import Container from 'react-bootstrap/Container';
 
 import Navbar from './components/Navbar/Navbar.jsx';
 import DailyImage from './components/DailyImage/DailyImage.jsx';
-import Archive from './components/Archive/Archive.jsx'; 
+import ArchiveSelect from './components/ArchiveSelect/ArchiveSelect.jsx'; 
 import AboutSection from './components/About/About.jsx';
 
 // API-hämtningen (Helt oförändrad och superbra)
@@ -39,19 +39,6 @@ function App() {
     startFetch();
   }, []);
 
-  // Snygga laddningsskärmen
-  if (loading) {
-    return (
-      <div className="loading-screen">
-        <img 
-          src='https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fimg.freepik.com%2Fpremium-vector%2Floading-symbol-vector_427757-728.jpg%3Fw%3D2000&f=1&nofb=1&ipt=081322b4315587828aa42c0487603103677eb4efe9993342aa78e1a8a9826472' 
-          style={{ maxWidth: '150px' }} 
-          alt="Laddar..."
-        />
-        <p>Loading space...</p>
-      </div>
-    );
-  }
   const handleArchiveSubmit = async (dateString) => {
     setArchiveLoading(true);
     try {
