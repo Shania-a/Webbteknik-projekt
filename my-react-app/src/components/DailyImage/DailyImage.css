@@ -1,10 +1,5 @@
 /* Grundläggande stilar för sidan */
-body {
-  background-color: #0b0d18; 
-  color: white;
-  font-family: sans-serif;
-  margin: 0;
-}
+
 
 .game-board {
   display: flex;
@@ -15,8 +10,7 @@ body {
 
 .info-header {
   text-align: center;
-  margin: 20px 0;
-  padding: 0 20px;
+  margin: 10px 0;
 }
 
 .image-date {
@@ -29,7 +23,7 @@ body {
 .image-stage {
   position: relative;
   width: 100vw;
-  height: 65vh;
+  height: 85vh;
   background-color: #000;
   overflow: hidden;
   display: flex;
@@ -103,7 +97,7 @@ body {
 /* Main bilden */
 .sharp-fg {
   max-width: 100%; 
-  max-height: 65vh; /* Matchar .image-stage höjd för att inte hamna utanför */
+  max-height: 85vh; /* Matchar .image-stage höjd för att inte hamna utanför */
   object-fit: contain;
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.7);
   border-radius: 6px;

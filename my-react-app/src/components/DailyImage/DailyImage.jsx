@@ -22,28 +22,23 @@ const DailyImage = ({ data }) => {
 
   return (
     <div className="game-board">
-      <div className="info-header">
-        <h2>{data.title}</h2>
-        <p className="image-date">{data.date}</p>
-      </div>
-
       {/* Spelplanen */}
       <div className="image-stage">
-        
+
         {/* Den suddiga bakgrundsbilden */}
-        <img 
-          src={imageUrl} 
-          alt="" 
-          className="blur-bg" 
-          aria-hidden="true" 
+        <img
+          src={imageUrl}
+          alt=""
+          className="blur-bg"
+          aria-hidden="true"
         />
 
         {/* Behållaren för bilden där "Waldo" kommer placeras */}
         <div className="image-wrapper">
-          <img 
-            src={imageUrl} 
-            alt={data.title} 
-            className={`sharp-fg ${isPlaying ? "" : "is-blurred"}`} 
+          <img
+            src={imageUrl}
+            alt={data.title}
+            className={`sharp-fg ${isPlaying ? "" : "is-blurred"}`}
           />
 
           {/* Play-button test, only shows if the user is not playing or sees the form*/}
@@ -59,6 +54,10 @@ const DailyImage = ({ data }) => {
           )}
         </div>
 
+      </div>
+      <div className="info-header">
+        <h2>{data.title}</h2>
+        <p className="image-date">{data.date}</p>
       </div>
     </div>
   );
