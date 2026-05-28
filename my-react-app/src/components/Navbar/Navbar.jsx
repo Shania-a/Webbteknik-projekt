@@ -16,7 +16,7 @@ function NavbarTest() {
             <Nav.Link as={NavLink} to="/arkiv">Arkiv</Nav.Link>
             <Buttons text="Home"></Buttons>
             <Buttons text="Previous"></Buttons>
-            <Buttons text="Archive"></Buttons>
+            <Buttons text="Archive" ></Buttons>
           </Nav>
         </Navbar.Collapse>
       </Container>
