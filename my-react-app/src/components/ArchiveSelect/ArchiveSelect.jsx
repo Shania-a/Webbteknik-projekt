@@ -6,33 +6,40 @@ export default function ArchiveSelect({ onDateSubmit }) {
     const [selectedMonth, setSelectedMonth] = useState(0);
     const [selectedDay, setSelectedDay] = useState(1);
 
+    // List for all months users select month index is used for date api query
     const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
+    //  Get the correct amount of total amount of days for each month by selecting one month ahead then selecting index 0 we get the final day of the previous month 
+    // ie. we get the final day of the selected month
     const totalDays = new Date(Number(selectedYear), selectedMonth + 1, 0).getDate();
+    // Loop through total days and add to list
     const days = [];
     for (let i = 1; i <= totalDays; i++) days.push(i);
 
+    // Get the current year
     const currentYear = new Date().getFullYear();
+    // Loop through current year and until 1995 when the pictures started getting uploaded
     const years = [];
-
     for (let y = currentYear; y >= 1995; y--) {
         years.push(y);
     }
 
     const submitButton = () => {
+        // Pad single digit months and days with a zero to match NASAs API format (YYYY-MM-DD)
         const formatMonth = String(selectedMonth + 1).padStart(2, '0');
         const formatDay = String(selectedDay).padStart(2, '0');
         const correctDate = `${selectedYear}-${formatMonth}-${formatDay}`;
 
         const chosenDate = new Date(correctDate);
         const today = new Date();
-
+        // If date picked is after todays date, return  early and alert incorrect selection
         if (chosenDate > today) {
             alert("You are not allowed to view the future!");
             return; 
         }
 
         console.log(correctDate);
+        // if the parent component provided a callback function, send the correctly formatted date back
         if (onDateSubmit) {
             onDateSubmit(correctDate);
         }
