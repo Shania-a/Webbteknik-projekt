@@ -1,46 +1,42 @@
-import { useState, useEffect } from 'react'
-import './App.css'
-import Test from './components/Test/Test.jsx'
-import Container from 'react-bootstrap/Container';
+import { useState, useEffect } from 'react';
+import { RouterProvider, createBrowserRouter, Outlet } from 'react-router-dom';
+
+import './App.css';
+
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import Nav from 'react-bootstrap/Nav';
+
+import Container from 'react-bootstrap/Container';
+
 import NavbarTest from './components/Test/NavbarTest/NavbarTest.jsx';
 import DailyImage from './components/DailyImage/DailyImage.jsx'
+import Archive from './components/Archive/Archive.jsx'; 
 
-// Vi gör funktionen flexibel genom att tillåta att ett datum skickas med
+// API-hämtningen (Helt oförändrad och superbra)
 async function getAPIData(date = "") {
   const api_key = import.meta.env.VITE_NASA_API_KEY; 
-  
-  // URL baserat på om ett specifikt datum skickats med eller inte
   const baseUrl = `https://api.nasa.gov/planetary/apod?api_key=${api_key}`;
   const finalUrl = date ? `${baseUrl}&date=${date}` : baseUrl;
 
   const response = await fetch(finalUrl);
-  const jsonData = await response.json();
-
-  return jsonData;
+  return await response.json();
 }
 
 function App() {
   const [nasaData, setNasaData] = useState(null);
   const [loading, setLoading] = useState(true);
 
-useEffect(() => {
-  async function startFetch() {
-    setLoading(true);
+  useEffect(() => {
+    async function startFetch() {
+      setLoading(true);
+      const result = await getAPIData(); 
+      setNasaData(result); 
+      setLoading(false);
+    }
+    startFetch();
+  }, []);
 
-    // För att hämta datan och vänta tills den är klar
-    const result = await getAPIData(); 
-    setNasaData(result); 
-
-    // Sen stänger vi av laddningsskärmen direkt efter att datan sparats
-    setLoading(false);
-  }
-  
-  startFetch();
-}, []);
-
+  // Snygga laddningsskärmen
   if (loading) {
     return (
       <div className="loading-screen">
@@ -54,27 +50,51 @@ useEffect(() => {
     );
   }
 
-  return (
-    <Container>
-      <Row>
-        <Col><h1>Spacefullness</h1></Col>
-      </Row>
-      <Row>
-        <Col>
-             {nasaData && <DailyImage data={nasaData} />}
-        </Col>
-      </Row>
-      <Row>
-        <Col>
-            <NavbarTest />
-        </Col>
-      </Row>
-    </Container>
-    
-    
-  );
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: (
+        
+        <Container style={{ marginTop: '20px' }}>
+          <Row>
+            <Col><h1>Spacefullness</h1></Col>
+          </Row>
+          <Row>
+            <Col>
+              <NavbarTest />
+            </Col>
+          </Row>
+          <Row>
+            <Col style={{ marginTop: '20px' }}>
+              <Outlet /> 
+            </Col>
+          </Row>
+          
+        </Container>
+      ),
+      children: [
+        {
+          path: "/",
+          element: (
+            <>
+              {nasaData && <DailyImage data={nasaData} />}
+            </>
+          )
+        },
+        {
+          path: "/arkiv",
+          element: (
+            <Row>
+              <Col className="text-center">
+                <Archive />
+              </Col>
+            </Row>
+          )
+        }
+      ]
+    }
+  ]);
+  return <RouterProvider router={router} />;
 }
-   
 
-
-export default App
+export default App;
