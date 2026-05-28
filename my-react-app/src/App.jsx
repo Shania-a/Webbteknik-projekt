@@ -10,7 +10,7 @@ import Container from 'react-bootstrap/Container';
 
 import Navbar from './components/Navbar/Navbar.jsx';
 import DailyImage from './components/DailyImage/DailyImage.jsx'
-import Archive from './components/Archive/Archive.jsx'; 
+import ArchiveSelect from './components/ArchiveSelect/ArchiveSelect.jsx'; 
 
 // API-hämtningen (Helt oförändrad och superbra)
 async function getAPIData(date = "") {
@@ -49,6 +49,9 @@ function App() {
       </div>
     );
   }
+  const handleArchiveSubmit = (dateString) => {
+      console.log("App:", dateString);
+  };
 
   const router = createBrowserRouter([
     {
@@ -86,7 +89,7 @@ function App() {
           element: (
             <Row>
               <Col className="text-center">
-                <Archive />
+                <ArchiveSelect onDateSubmit={handleArchiveSubmit} />
               </Col>
             </Row>
           )
