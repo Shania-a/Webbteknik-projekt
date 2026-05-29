@@ -11,6 +11,7 @@ import Navbar from './components/Navbar/Navbar.jsx';
 import DailyImage from './components/DailyImage/DailyImage.jsx';
 import ArchiveSelect from './components/ArchiveSelect/ArchiveSelect.jsx'; 
 import AboutSection from './components/About/About.jsx';
+import UserManagement from './components/UserManagement/UserManagement.jsx';
 
 function RootLayout({ nasaData, archiveData, handlePreviousDay }) {
   const location = useLocation();
@@ -39,6 +40,7 @@ function RootLayout({ nasaData, archiveData, handlePreviousDay }) {
   );
 }
 
+
 async function getAPIData(date = "") {
   const api_key = import.meta.env.VITE_NASA_API_KEY; 
   const baseUrl = `https://api.nasa.gov/planetary/apod?api_key=${api_key}`;
@@ -62,17 +64,23 @@ function App() {
     setLoading(false);
   }
 
-  async function changeArchiveDate(newDate = "") {
-    setArchiveLoading(true);
-    const result = await getAPIData(newDate);
-    setArchiveData(result);
-    setArchiveLoading(false);
-  }
-
   // Fetching the daily image
   useEffect(() => {
     changeDate();
   }, []);
+
+  const handleArchiveSubmit = async (dateString) => {
+    //Fetch the API data using the date sent from Archive
+    setArchiveLoading(true);
+    try {
+      const result = await getAPIData(dateString); 
+      setArchiveData(result); 
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setArchiveLoading(false);
+    }
+  };
 
   const handlePreviousDay = async (currentPath) => {
     const currentData = currentPath === '/archive' ? archiveData : nasaData;
@@ -130,12 +138,11 @@ function App() {
             )
           },
           {
-            path: "/previous",
+            path: "/users",
             element: (
               <Row>
                 <Col className="text-center">
-                  <h1>Pizza</h1>
-                  <Outlet context={{ handlePreviousDay }} />
+                  <UserManagement/>
                 </Col>
               </Row>
             )
@@ -143,7 +150,7 @@ function App() {
         ]
       }
     ]);
-  }, [nasaData, archiveData, archiveLoading]); 
+  }, [nasaData, archiveData, archiveLoading, handlePreviousDay]); 
 
 
   if (loading) {
