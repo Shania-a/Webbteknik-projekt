@@ -10,7 +10,7 @@ const Game = ({ imageUrl, title }) => {
 
     const hasSavedUser = localStorage.getItem("game-username");
 
-     //Function runs when the form is valid and saved
+    //Function runs when the form is valid and saved
     const handleGameStart = () => {
     setShowForm(false); //Hides completed form
     setIsPlaying(true); //Removes the blur
@@ -30,15 +30,15 @@ const Game = ({ imageUrl, title }) => {
 
     return(
         <div className="game-board">
-            {/* Spelplanen */}
+            
+            {/*The blurry background*/}
             <div className="image-stage">
-
-            {/* Den suddiga bakgrundsbilden */}
-            <img
-            src={imageUrl}
-            alt=""
-            className="blur-bg"
-            aria-hidden="true"
+            
+                <img
+                src={imageUrl}
+                alt=""
+                className="blur-bg"
+                aria-hidden="true"
             />
 
             {/*Lil sidebar for da hints*/}
@@ -53,7 +53,7 @@ const Game = ({ imageUrl, title }) => {
             </div>
             )}
 
-            {/* Behållaren för bilden där "Waldo" kommer placeras */}
+            {/*The container in which we place the hidden artifacts*/}
             <div className="image-wrapper">
                 <img
                     src={imageUrl}
@@ -61,7 +61,7 @@ const Game = ({ imageUrl, title }) => {
                     className={`sharp-fg ${isPlaying ? "" : "is-blurred"}`}
                 />
 
-                {/*Placing the hidden icon only when the game is ongoing/started */}
+                {/*Showing the hidden icon only when the game is ongoing/started */}
                 {isPlaying && (
                     <img 
                     src={starArtifact}
@@ -71,7 +71,8 @@ const Game = ({ imageUrl, title }) => {
                     />
                 )}
 
-                {/* Play-button test, only shows if the user is not playing or sees the form*/}
+                {/* Play-button, only visible at the main page before any game has started or
+                 if a new user hasn't filled out the form yet*/}
                 {!isPlaying && !showForm && (
                     <div className="play-overlay" onClick={handlePlayClick}>
                     <span className="play-icon">▶</span>
