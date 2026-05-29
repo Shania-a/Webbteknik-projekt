@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from 'react';
-import { RouterProvider, createBrowserRouter, Outlet } from 'react-router-dom';
+import { RouterProvider, createBrowserRouter, Outlet, useLocation } from 'react-router-dom';
 
 import './App.css';
 
@@ -11,10 +11,36 @@ import Navbar from './components/Navbar/Navbar.jsx';
 import DailyImage from './components/DailyImage/DailyImage.jsx';
 import ArchiveSelect from './components/ArchiveSelect/ArchiveSelect.jsx'; 
 import AboutSection from './components/About/About.jsx';
-
 import UserManagement from './components/UserManagement/UserManagement.jsx';
 
-// API-hämtningen (Helt oförändrad och superbra)
+function RootLayout({ nasaData, archiveData, handlePreviousDay }) {
+  const location = useLocation();
+  const currentData = location.pathname === '/archive' ? archiveData : nasaData;
+
+  return (
+    <Container style={{ marginTop: '20px' }}>
+      <Row>
+      </Row>
+      <Row>
+        <Col>
+          <Navbar handlePreviousDay={handlePreviousDay} />
+        </Col>
+      </Row>
+      <Row>
+        <Col style={{ marginTop: '20px' }}>
+          <Outlet />
+          <Row className="w-100 justify-content-center">
+            <Col md={8} className="d-flex justify-content-center">
+              <AboutSection data={currentData} />
+            </Col>
+          </Row>
+        </Col>
+      </Row>
+    </Container>
+  );
+}
+
+
 async function getAPIData(date = "") {
   const api_key = import.meta.env.VITE_NASA_API_KEY; 
   const baseUrl = `https://api.nasa.gov/planetary/apod?api_key=${api_key}`;
@@ -88,29 +114,7 @@ function App() {
     return createBrowserRouter([
     {
       path: "/",
-      element: (
-        
-        <Container style={{ marginTop: '20px' }}>
-          <Row>
-          </Row>
-          <Row>
-            <Col>
-              <Navbar handlePreviousDay={handlePreviousDay} />
-            </Col>
-          </Row>
-          <Row>
-            <Col style={{ marginTop: '20px' }}>
-              <Outlet />
-              <Row className="w-100 justify-content-center">
-                <Col md={8} className="d-flex justify-content-center">
-                <AboutSection data={nasaData} />
-                </Col>
-              </Row>
-            </Col>
-          </Row>
-          
-        </Container>
-      ),
+      element: <RootLayout nasaData={nasaData} archiveData={archiveData} handlePreviousDay={handlePreviousDay} />,
       children: [
         {
           path: "/",
@@ -125,10 +129,9 @@ function App() {
             element: (
               <Row>
                 <Col className="text-center">
-                  {archiveLoading && <p className="text-light mt-4">Hämtar rymden hehe...</p>}
-                  
-                  {!archiveLoading && archiveData && <DailyImage data={archiveData} />}
                   <ArchiveSelect onDateSubmit={handleArchiveSubmit} />
+                  {archiveLoading && <p>Loading archive image...</p>}
+                  {archiveData && <DailyImage data={archiveData} />}
                 </Col>
               </Row>
             )

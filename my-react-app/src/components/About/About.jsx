@@ -50,7 +50,7 @@ function AboutSection({ data }) {
 
                 ) : (
 
-                    <p>{data.explanation}</p>
+                    <p>{data?.explanation}</p>
                 )}
             </div>
         </section>
