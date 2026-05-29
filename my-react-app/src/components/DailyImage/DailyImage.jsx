@@ -3,15 +3,9 @@ import { useState } from 'react';
 
 import './DailyImage.css';
 
-import GameForm from '../GameForm/GameForm.jsx';
-import GameIcon from '../GameIcon/GameIcon.jsx';
-import starArtifact from '../../Assets/images/star.png';
+import Game from '../Game/Game.jsx';
 
 const DailyImage = ({ data }) => {
-
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [showForm, setShowForm] = useState(false);
-  const [isIconFound, setIsIconFound] = useState(false);
 
   if (!data) return null;
 
