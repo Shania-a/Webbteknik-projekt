@@ -5,7 +5,8 @@ Game functionality:
     Hint system?
 
 Achive functionality:
-    Players can choose a date and get a new image.
+    Players can choose a date and get a new image. X
+    Previous day
 
 Basic account in local storage:
     Players can see time on a image

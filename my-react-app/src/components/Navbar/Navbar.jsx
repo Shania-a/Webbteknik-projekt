@@ -4,7 +4,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import { NavLink } from 'react-router-dom';
 import Buttons from '../Buttons/Buttons.jsx';
 
-function NavbarTest() {
+function NavbarTest({ handlePreviousDay }) {
   return (
     <Navbar expand="lg" className="bg-body-tertiary" data-bs-theme="dark">
       <Container>
@@ -13,8 +13,13 @@ function NavbarTest() {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
             <Buttons as={NavLink} to="/" text="Daily Image"></Buttons>
-            <Buttons text="Previous"></Buttons>
-            <Buttons as={NavLink} to="/arkiv" text="Archive"></Buttons>
+            <Buttons 
+            as={NavLink} 
+            to="/previous" 
+            text="Previous"
+            onClick={() => handlePreviousDay && handlePreviousDay(location.pathname)}
+            ></Buttons>
+            <Buttons as={NavLink} to="/archive" text="Archive"></Buttons>
           </Nav>
         </Navbar.Collapse>
       </Container>
