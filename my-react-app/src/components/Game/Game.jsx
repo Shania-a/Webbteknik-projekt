@@ -8,6 +8,8 @@ const Game = ({ imageUrl, title }) => {
     const [showForm, setShowForm] = useState(false);
     const [isIconFound, setIsIconFound] = useState(false);
 
+    const hasSavedUser = localStorage.getItem("game-username");
+
      //Function runs when the form is valid and saved
     const handleGameStart = () => {
     setShowForm(false); //Hides completed form
@@ -18,6 +20,13 @@ const Game = ({ imageUrl, title }) => {
     setIsIconFound(true);
     alert("GG WP, you found it!");
     }
+
+    const handlePlayClick = () => {
+    if (hasSavedUser) {
+      setIsPlaying(true);
+    } else {
+      setShowForm(true);
+    }};
 
     return(
         <div className="game-board">
@@ -48,7 +57,7 @@ const Game = ({ imageUrl, title }) => {
             <div className="image-wrapper">
                 <img
                     src={imageUrl}
-                    alt={data.title}
+                    alt={title}
                     className={`sharp-fg ${isPlaying ? "" : "is-blurred"}`}
                 />
 
@@ -80,3 +89,5 @@ const Game = ({ imageUrl, title }) => {
     </div>
     );
 }
+
+export default Game;
