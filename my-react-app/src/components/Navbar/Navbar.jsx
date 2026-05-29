@@ -12,16 +12,21 @@ function NavbarTest({ handlePreviousDay }) {
       <Container>
         <Navbar.Brand as={NavLink} to="/">Spacefullness</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
+        <Navbar.Collapse id="basic-navbar-nav" className="mt-3 mt-lg-0">
           <Nav className="me-auto">
             <Buttons as={NavLink} to="/" text="Daily Image"></Buttons>
             <Buttons as={NavLink} to="/archive" text="Archive"></Buttons>
             <Buttons as={NavLink} to="/users" text="Users"></Buttons>
           </Nav>
+          <Nav>
             <Buttons 
-            text="Previous"
+            as={NavLink} 
+            to="#" 
+            className={({ isActive }) => "nav-link"}
+            text="Previous Day"
             onClick={() => handlePreviousDay && handlePreviousDay(location.pathname)}
             ></Buttons>
+            </Nav>
         </Navbar.Collapse>
       </Container>
     </Navbar>

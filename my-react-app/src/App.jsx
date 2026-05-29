@@ -129,8 +129,8 @@ function App() {
             element: (
               <Row>
                 <Col className="text-center">
+                  {archiveLoading && <p>Loading archive image...</p> && <div className="space-spinner"></div>}
                   <ArchiveSelect onDateSubmit={handleArchiveSubmit} />
-                  {archiveLoading && <p>Loading archive image...</p>}
                   {archiveData && <DailyImage data={archiveData} />}
                 </Col>
               </Row>
@@ -155,11 +155,7 @@ function App() {
   if (loading) {
     return (
       <div className="loading-screen">
-        <img 
-          src='https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fimg.freepik.com%2Fpremium-vector%2Floading-symbol-vector_427757-728.jpg%3Fw%3D2000&f=1&nofb=1&ipt=081322b4315587828aa42c0487603103677eb4efe9993342aa78e1a8a9826472' 
-          style={{ maxWidth: '150px' }} 
-          alt="Laddar..."
-        />
+        <div className="space-spinner"></div>
         <p>Hämtar rymden hehe...</p>
       </div>
     );

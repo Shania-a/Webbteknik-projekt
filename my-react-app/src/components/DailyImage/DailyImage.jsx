@@ -56,7 +56,9 @@ const DailyImage = ({ data }) => {
         <div className="sidebar-hints">
           <p className="hints-title">Hints</p>
           <div className="hints-icon-container">
-            <div className={`${isIconFound ? "is-disabled" : ""}`}>
+            <div className={`hints-wrapper ${isIconFound ? "is-disabled" : ""}`}>
+              <GameIcon />
+              <GameIcon />
               <GameIcon />
             </div>
           </div>
