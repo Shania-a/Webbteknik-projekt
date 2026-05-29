@@ -64,6 +64,21 @@ function App() {
     const previousDay = currentDate.toISOString().split('T')[0];
 
     console.log(previousDay);
+
+    setArchiveLoading(true);
+    // Fetch the image from the API and update the state corresponding to the users current route
+    try {
+      const result = await getAPIData(previousDay); 
+      if (currentPath === '/archive') {
+        setArchiveData(result); 
+      } else {
+        setNasaData(result);
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setArchiveLoading(false);
+    }
   };
 
   const router = useMemo(() => {
