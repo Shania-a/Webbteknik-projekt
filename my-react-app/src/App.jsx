@@ -51,6 +51,36 @@ function App() {
     }
   };
 
+  const handlePreviousDay = async (currentPath) => {
+
+    const currentData = currentPath === '/archive' ? archiveData : nasaData;
+    console.log(currentData.date)
+    if (!currentData || !currentData.date) return;
+    // Reformat the current date back into regular date() so we can have correct calendar handling for instance: 1th of May -1 = 30 April
+    const currentDate = new Date(currentData.date);
+    currentDate.setDate(currentDate.getDate() - 1);
+    // Date looks like this 2026-05-28T12:48:20.000Z atm
+    // Reformat into a string splitting the date at T and use index 0 to get clean date string for instance 2016-04-04
+    const previousDay = currentDate.toISOString().split('T')[0];
+
+    console.log(previousDay);
+
+    setArchiveLoading(true);
+    // Fetch the image from the API and update the state corresponding to the users current route
+    try {
+      const result = await getAPIData(previousDay); 
+      if (currentPath === '/archive') {
+        setArchiveData(result); 
+      } else {
+        setNasaData(result);
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setArchiveLoading(false);
+    }
+  };
+
   const router = useMemo(() => {
     return createBrowserRouter([
     {
@@ -62,7 +92,7 @@ function App() {
           </Row>
           <Row>
             <Col>
-              <Navbar />
+              <Navbar handlePreviousDay={handlePreviousDay} />
             </Col>
           </Row>
           <Row>
@@ -88,7 +118,7 @@ function App() {
           )
         },
           {
-            path: "/arkiv",
+            path: "/archive",
             element: (
               <Row>
                 <Col className="text-center">
@@ -96,6 +126,17 @@ function App() {
                   
                   {!archiveLoading && archiveData && <DailyImage data={archiveData} />}
                   <ArchiveSelect onDateSubmit={handleArchiveSubmit} />
+                </Col>
+              </Row>
+            )
+          },
+          {
+            path: "/previous",
+            element: (
+              <Row>
+                <Col className="text-center">
+                  <h1>Pizza</h1>
+                  <Outlet context={{ handlePreviousDay }} />
                 </Col>
               </Row>
             )
