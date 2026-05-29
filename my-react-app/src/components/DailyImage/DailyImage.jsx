@@ -34,6 +34,14 @@ const DailyImage = ({ data }) => {
           aria-hidden="true"
         />
 
+        {/*Lil sidebar for da hints*/}
+        <div className="sidebar-hints">
+          <p className="hints-title">Hints</p>
+          <div className="hints-icon-container">
+            <GameIcon />
+          </div>
+        </div>
+
         {/* Behållaren för bilden där "Waldo" kommer placeras */}
         <div className="image-wrapper">
           <img
@@ -59,7 +67,6 @@ const DailyImage = ({ data }) => {
       <div className="info-header">
         <h2>{data.title}</h2>
         <p className="image-date">{data.date}</p>
-        <GameIcon />
       </div>
     </div>
   );
