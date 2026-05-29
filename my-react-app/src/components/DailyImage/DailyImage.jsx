@@ -3,103 +3,29 @@ import { useState } from 'react';
 
 import './DailyImage.css';
 
-import GameForm from '../GameForm/GameForm.jsx';
-import GameIcon from '../GameIcon/GameIcon.jsx';
-import starArtifact from '../../Assets/images/star.png';
+import Game from '../Game/Game.jsx';
 
 const DailyImage = ({ data }) => {
 
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [showForm, setShowForm] = useState(false);
-  const [isIconFound, setIsIconFound] = useState(false);
-
   if (!data) return null;
-
-  // Ta reda på vilken bildkälla som ska användas.
-  // Om det är en video använder vi tumnageln (kräver &thumbs=true i API-anropet), annars den vanliga bilden.
+  //Determine which image soruce to use
+  //If it's a video we use the thumbnail (requires &thumbs=true in API call) otherwise use the standard image
   const imageUrl = data.media_type === 'video' ? data.thumbnail_url : data.url;
-  const hasSavedUser = localStorage.getItem("game-username");
-  //Function runs when the form is valid and saved
-  const handleGameStart = () => {
-    setShowForm(false); //Hides completed form
-    setIsPlaying(true); //Removes the blur
-  }
-
-  const handleFindIcon = () => {
-    setIsIconFound(true);
-    alert("GG WP, you found it!");
-  }
-  
-  const handlePlayClick = () => {
-    if (hasSavedUser) {
-      setIsPlaying(true);
-    } else {
-      setShowForm(true);
-    }
-  };
 
   return (
     <div className="game-board">
-      {/* Spelplanen */}
-      <div className="image-stage">
 
-        {/* Den suddiga bakgrundsbilden */}
-        <img
-          src={imageUrl}
-          alt=""
-          className="blur-bg"
-          aria-hidden="true"
-        />
 
-        {/*Lil sidebar for da hints*/}
-        {isPlaying && (
-        <div className="sidebar-hints">
-          <p className="hints-title">Hints</p>
-          <div className="hints-icon-container">
-            <div className={`${isIconFound ? "is-disabled" : ""}`}>
-              <GameIcon />
-            </div>
-          </div>
-        </div>
-        )}
+      <Game imageUrl={imageUrl} title={data.title} />
 
-        {/* Behållaren för bilden där "Waldo" kommer placeras */}
-        <div className="image-wrapper">
-          <img
-            src={imageUrl}
-            alt={data.title}
-            className={`sharp-fg ${isPlaying ? "" : "is-blurred"}`}
-          />
-
-          {/*Placing the hidden icon only when the game is ongoing/started */}
-          {isPlaying && (
-            <img 
-              src={starArtifact}
-              alt="Hidden Icon" //low-key now needed cus the image is hidden anyway
-              className="hidden-artifact-icon"
-              onClick={handleFindIcon}
-              />
-          )}
-
-          {/* Play-button test, only shows if the user is not playing or sees the form*/}
-          {!isPlaying && !showForm && (
-            <div className="play-overlay" onClick={handlePlayClick}>
-              <span className="play-icon">▶</span>
-            </div>
-          )}
-
-          {/*Form only visible if showForm is true */}
-          {showForm && (
-            <GameForm onStartGame={handleGameStart} />
-          )}
-        </div>
-
-      </div>
       <div className="info-header">
         <h2>{data.title}</h2>
         <p className="image-date">{data.date}</p>
       </div>
+      
     </div>
+      
+    
   );
 };
 
