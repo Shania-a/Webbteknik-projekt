@@ -2,6 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import './DailyImage.css';
 import GameForm from '../GameForm/GameForm.jsx';
+import GameIcon from '../GameIcon/GameIcon.jsx';
 
 const DailyImage = ({ data }) => {
 
@@ -58,6 +59,7 @@ const DailyImage = ({ data }) => {
       <div className="info-header">
         <h2>{data.title}</h2>
         <p className="image-date">{data.date}</p>
+        <GameIcon />
       </div>
     </div>
   );
