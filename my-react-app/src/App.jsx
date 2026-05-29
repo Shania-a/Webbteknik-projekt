@@ -12,6 +12,8 @@ import DailyImage from './components/DailyImage/DailyImage.jsx';
 import ArchiveSelect from './components/ArchiveSelect/ArchiveSelect.jsx'; 
 import AboutSection from './components/About/About.jsx';
 
+import UserManagement from './components/UserManagement/UserManagement.jsx';
+
 // API-hämtningen (Helt oförändrad och superbra)
 async function getAPIData(date = "") {
   const api_key = import.meta.env.VITE_NASA_API_KEY; 
@@ -40,10 +42,41 @@ function App() {
   }, []);
 
   const handleArchiveSubmit = async (dateString) => {
+    //Fetch the API data using the date sent from Archive
     setArchiveLoading(true);
     try {
       const result = await getAPIData(dateString); 
       setArchiveData(result); 
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setArchiveLoading(false);
+    }
+  };
+
+  const handlePreviousDay = async (currentPath) => {
+
+    const currentData = currentPath === '/archive' ? archiveData : nasaData;
+    console.log(currentData.date)
+    if (!currentData || !currentData.date) return;
+    // Reformat the current date back into regular date() so we can have correct calendar handling for instance: 1th of May -1 = 30 April
+    const currentDate = new Date(currentData.date);
+    currentDate.setDate(currentDate.getDate() - 1);
+    // Date looks like this 2026-05-28T12:48:20.000Z atm
+    // Reformat into a string splitting the date at T and use index 0 to get clean date string for instance 2016-04-04
+    const previousDay = currentDate.toISOString().split('T')[0];
+
+    console.log(previousDay);
+
+    setArchiveLoading(true);
+    // Fetch the image from the API and update the state corresponding to the users current route
+    try {
+      const result = await getAPIData(previousDay); 
+      if (currentPath === '/archive') {
+        setArchiveData(result); 
+      } else {
+        setNasaData(result);
+      }
     } catch (error) {
       console.error(error);
     } finally {
@@ -62,7 +95,7 @@ function App() {
           </Row>
           <Row>
             <Col>
-              <Navbar />
+              <Navbar handlePreviousDay={handlePreviousDay} />
             </Col>
           </Row>
           <Row>
@@ -88,7 +121,7 @@ function App() {
           )
         },
           {
-            path: "/arkiv",
+            path: "/archive",
             element: (
               <Row>
                 <Col className="text-center">
@@ -99,11 +132,21 @@ function App() {
                 </Col>
               </Row>
             )
+          },
+          {
+            path: "/users",
+            element: (
+              <Row>
+                <Col className="text-center">
+                  <UserManagement/>
+                </Col>
+              </Row>
+            )
           }
         ]
       }
     ]);
-  }, [nasaData, archiveData, archiveLoading]); 
+  }, [nasaData, archiveData, archiveLoading, handlePreviousDay]); 
 
   // Snygga laddningsskärmen
   if (loading) {
