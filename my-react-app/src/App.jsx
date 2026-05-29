@@ -130,7 +130,7 @@ function App() {
             element: (
               <Row>
                 <Col className="text-center">
-                  <ArchiveSelect changeDate={changeArchiveDate} />
+                  <ArchiveSelect changeDate={handleArchiveSubmit} />
                   {archiveLoading && <p>Loading archive image...</p>}
                   {archiveData && <DailyImage data={archiveData} />}
                 </Col>
