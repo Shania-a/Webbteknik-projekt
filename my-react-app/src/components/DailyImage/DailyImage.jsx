@@ -1,13 +1,17 @@
 import React from 'react';
 import { useState } from 'react';
+
 import './DailyImage.css';
+
 import GameForm from '../GameForm/GameForm.jsx';
 import GameIcon from '../GameIcon/GameIcon.jsx';
+import starArtifact from '../../Assets/images/star.png';
 
 const DailyImage = ({ data }) => {
 
   const [isPlaying, setIsPlaying] = useState(false);
   const [showForm, setShowForm] = useState(false);
+  const [isIconFound, setIsIconFound] = useState(false);
 
   if (!data) return null;
 
@@ -19,6 +23,11 @@ const DailyImage = ({ data }) => {
   const handleGameStart = () => {
     setShowForm(false); //Hides completed form
     setIsPlaying(true); //Removes the blur
+  }
+
+  const handleFindIcon = () => {
+    setIsIconFound(true);
+    alert("GG WP, you found it!");
   }
 
   return (
@@ -39,7 +48,9 @@ const DailyImage = ({ data }) => {
         <div className="sidebar-hints">
           <p className="hints-title">Hints</p>
           <div className="hints-icon-container">
-            <GameIcon />
+            <div className={`${isIconFound ? "is-disabled" : ""}`}>
+              <GameIcon />
+            </div>
           </div>
         </div>
         )}
@@ -51,6 +62,16 @@ const DailyImage = ({ data }) => {
             alt={data.title}
             className={`sharp-fg ${isPlaying ? "" : "is-blurred"}`}
           />
+
+          {/*Placing the hidden icon only when the game is ongoing/started */}
+          {isPlaying && (
+            <img 
+              src={starArtifact}
+              alt="Hidden Icon" //low-key now needed cus the image is hidden anyway
+              className="hidden-artifact-icon"
+              onClick={handleFindIcon}
+              />
+          )}
 
           {/* Play-button test, only shows if the user is not playing or sees the form*/}
           {!isPlaying && !showForm && (
