@@ -53,20 +53,18 @@ async function getAPIData(date = "") {
 function App() {
   const [nasaData, setNasaData] = useState(null);
   const [loading, setLoading] = useState(true);
+
   const [archiveData, setArchiveData] = useState(null);
   const [archiveLoading, setArchiveLoading] = useState(false);
 
-  // Function to change date wether by archieve or previous day
-  async function changeDate(newDate = "") {
-    setLoading(true);
-    const result = await getAPIData(newDate);
-    setNasaData(result);
-    setLoading(false);
-  }
-
-  // Fetching the daily image
   useEffect(() => {
-    changeDate();
+    async function startFetch() {
+      setLoading(true);
+      const result = await getAPIData(); 
+      setNasaData(result); 
+      setLoading(false);
+    }
+    startFetch();
   }, []);
 
   const handleArchiveSubmit = async (dateString) => {
@@ -83,9 +81,10 @@ function App() {
   };
 
   const handlePreviousDay = async (currentPath) => {
+
     const currentData = currentPath === '/archive' ? archiveData : nasaData;
-    if (!currentData || !currentData.date) return;
     console.log(currentData.date)
+    if (!currentData || !currentData.date) return;
     // Reformat the current date back into regular date() so we can have correct calendar handling for instance: 1th of May -1 = 30 April
     const currentDate = new Date(currentData.date);
     currentDate.setDate(currentDate.getDate() - 1);
@@ -130,9 +129,10 @@ function App() {
             element: (
               <Row>
                 <Col className="text-center">
-                  <ArchiveSelect changeDate={changeArchiveDate} />
-                  {archiveLoading && <p>Loading archive image...</p>}
-                  {archiveData && <DailyImage data={archiveData} />}
+                  {archiveLoading && <p className="text-light mt-4">Hämtar rymden hehe...</p>}
+                  
+                  {!archiveLoading && archiveData && <DailyImage data={archiveData} />}
+                  <ArchiveSelect onDateSubmit={handleArchiveSubmit} />
                 </Col>
               </Row>
             )
@@ -152,7 +152,7 @@ function App() {
     ]);
   }, [nasaData, archiveData, archiveLoading, handlePreviousDay]); 
 
-
+  // Snygga laddningsskärmen
   if (loading) {
     return (
       <div className="loading-screen">
@@ -161,7 +161,7 @@ function App() {
           style={{ maxWidth: '150px' }} 
           alt="Laddar..."
         />
-        <p>Loading space...</p>
+        <p>Hämtar rymden hehe...</p>
       </div>
     );
   }
