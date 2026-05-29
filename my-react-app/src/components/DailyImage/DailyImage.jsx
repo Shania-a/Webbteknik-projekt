@@ -13,12 +13,20 @@ const DailyImage = ({ data }) => {
   // Ta reda på vilken bildkälla som ska användas.
   // Om det är en video använder vi tumnageln (kräver &thumbs=true i API-anropet), annars den vanliga bilden.
   const imageUrl = data.media_type === 'video' ? data.thumbnail_url : data.url;
-
+  const hasSavedUser = localStorage.getItem("game-username");
   //Function runs when the form is valid and saved
   const handleGameStart = () => {
     setShowForm(false); //Hides completed form
     setIsPlaying(true); //Removes the blur
   }
+
+  const handlePlayClick = () => {
+    if (hasSavedUser) {
+      setIsPlaying(true);
+    } else {
+      setShowForm(true);
+    }
+  };
 
   return (
     <div className="game-board">
@@ -43,7 +51,7 @@ const DailyImage = ({ data }) => {
 
           {/* Play-button test, only shows if the user is not playing or sees the form*/}
           {!isPlaying && !showForm && (
-            <div className="play-overlay" onClick={() => setShowForm(true)}>
+            <div className="play-overlay" onClick={handlePlayClick}>
               <span className="play-icon">▶</span>
             </div>
           )}
