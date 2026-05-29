@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
 
-export default function ArchiveSelect({ onDateSubmit }) {
+export default function ArchiveSelect({ changeDate }) {
     const [selectedYear, setSelectedYear] = useState('2026');
     const [selectedMonth, setSelectedMonth] = useState(0);
     const [selectedDay, setSelectedDay] = useState(1);
@@ -40,8 +40,8 @@ export default function ArchiveSelect({ onDateSubmit }) {
 
         console.log(correctDate);
         // if the parent component provided a callback function, send the correctly formatted date back
-        if (onDateSubmit) {
-            onDateSubmit(correctDate);
+        if (changeDate) {
+            changeDate(correctDate);
         }
     };
 
