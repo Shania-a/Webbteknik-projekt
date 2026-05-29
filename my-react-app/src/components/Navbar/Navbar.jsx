@@ -16,6 +16,7 @@ function NavbarTest({ handlePreviousDay }) {
           <Nav className="me-auto">
             <Buttons as={NavLink} to="/" text="Daily Image"></Buttons>
             <Buttons as={NavLink} to="/archive" text="Archive"></Buttons>
+            <Buttons as={NavLink} to="/users" text="Users"></Buttons>
           </Nav>
             <Buttons 
             text="Previous"
