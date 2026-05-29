@@ -119,6 +119,7 @@
   align-items: center;
   margin-right: 2rem;
   z-index: 10;
+  animation: faceIn 0.8 ease forwards;
 }
 .hints-title{
   font-style:italic;

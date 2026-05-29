@@ -35,12 +35,14 @@ const DailyImage = ({ data }) => {
         />
 
         {/*Lil sidebar for da hints*/}
+        {isPlaying && (
         <div className="sidebar-hints">
           <p className="hints-title">Hints</p>
           <div className="hints-icon-container">
             <GameIcon />
           </div>
         </div>
+        )}
 
         {/* Behållaren för bilden där "Waldo" kommer placeras */}
         <div className="image-wrapper">
