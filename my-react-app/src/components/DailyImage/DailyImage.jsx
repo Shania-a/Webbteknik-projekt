@@ -8,8 +8,8 @@ import Game from '../Game/Game.jsx';
 const DailyImage = ({ data }) => {
 
   if (!data) return null;
-  // Ta reda på vilken bildkälla som ska användas.
-  // Om det är en video använder vi tumnageln (kräver &thumbs=true i API-anropet), annars den vanliga bilden.
+  //Determine which image soruce to use
+  //If it's a video we use the thumbnail (requires &thumbs=true in API call) otherwise use the standard image
   const imageUrl = data.media_type === 'video' ? data.thumbnail_url : data.url;
 
   return (
