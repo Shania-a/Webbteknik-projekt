@@ -42,6 +42,11 @@ async function getAPIData(date = "") {
   const finalUrl = date ? `${baseUrl}&date=${date}` : baseUrl;
 
   const response = await fetch(finalUrl);
+
+  if (!response.ok) {
+    throw new Error(`NASA API svarade med felkod: ${response.status}`);
+  }
+  
   return await response.json();
 }
 
