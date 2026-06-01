@@ -4,12 +4,16 @@ import GameIcon from '../GameIcon/GameIcon.jsx';
 import starArtifact from '../../Assets/Images/star.png';
 import './Game.css';
 
-function seedHash(str) {
+// Hashes a a date string and transforms it into a float between 0-1
+function seedHash(date) {
     let hash = 0;
-    for (let index = 0; index < str.length; index++) {
-        hash = str.charCodeAt(index) + ((hash << 5) - hash);
+    // Hashing algoritm to convert string chars to numeric hash
+    for (let index = 0; index < date.length; index++) {
+        hash = date.charCodeAt(index) + ((hash << 5) - hash);
     }
+    //Use a sine wave to turn our hash into a scrambled number and makes a big number to create more variance 
     const x = Math.sin(hash) * 10000;
+    // Return only the decimals
     return x - Math.floor(x);
 }
 
