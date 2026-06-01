@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import GameForm from '../GameForm/GameForm.jsx';
 import GameIcon from '../GameIcon/GameIcon.jsx';
 import starArtifact from '../../Assets/Images/star.png';
+import './Game.css';
 
 const Game = ({ imageUrl, title, date }) => {
     const [isPlaying, setIsPlaying] = useState(false);
@@ -43,6 +44,9 @@ const Game = ({ imageUrl, title, date }) => {
       setShowForm(true);
     }};
 
+
+    const iconX = 30;
+    const iconY = 88;
     return(
         <div className="game-board">
             
@@ -62,6 +66,7 @@ const Game = ({ imageUrl, title, date }) => {
                 <p className="hints-title">Hints</p>
                 <div className="hints-icon-container">
                     <div className={`${isIconFound ? "is-disabled" : ""}`}>
+                        <GameIcon />
                         <GameIcon />
                     </div>
                 </div>
@@ -83,6 +88,11 @@ const Game = ({ imageUrl, title, date }) => {
                     alt="Hidden Icon" //lowkey not needed cus the image is hidden anyway
                     className="hidden-artifact-icon"
                     onClick={handleFindIcon}
+                    style={{
+                        left: `${iconX}%`,
+                        top: `${iconY}%`
+                    }}
+                    
                     />
                 )}
 
