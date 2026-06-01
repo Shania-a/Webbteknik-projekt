@@ -72,6 +72,7 @@ const Game = ({ imageUrl, title, date }) => {
     const handlePlayClick = () => {
     if (userObject) {
       setIsPlaying(true);
+      start(); //Start the stopwatch 
     } else {
       setShowForm(true);
     }};
