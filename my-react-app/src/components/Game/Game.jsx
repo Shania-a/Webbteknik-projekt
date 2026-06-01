@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useStopwatch } from 'react-timer-hook';
 import GameForm from '../GameForm/GameForm.jsx';
 import GameIcon from '../GameIcon/GameIcon.jsx';
 import starArtifact from '../../Assets/Images/star.png';
@@ -23,6 +24,10 @@ const Game = ({ imageUrl, title, date }) => {
     const [showForm, setShowForm] = useState(false);
     const [isIconFound, setIsIconFound] = useState(false);
     const [showWinScreen, setShowWinScreen] = useState(false);
+
+    //Setting up the hook-stopwatch, false-boolean sets default to stopped
+    const { seconds, minutes, start, pause, reset } = useStopwatch({ autoStart:false });
+
     const userString = localStorage.getItem("game-user");
     const userObject = userString ? JSON.parse(userString) : null;
 
@@ -30,24 +35,34 @@ const Game = ({ imageUrl, title, date }) => {
     const handleGameStart = () => {
     setShowForm(false); //Hides completed form
     setIsPlaying(true); //Removes the blur
+    start(); //Starts the stopwatch
     }
 
     const handleFindIcon = () => {
-    setIsIconFound(true);
+        setIsIconFound(true);
+        pause(); //"Stops" the stopwatch
 
-    if (userObject) {
-       //Check so that the current date doesn't already exist in the array
-       if (!userObject.completedDates.includes(date)){
+        if (userObject) {
 
-        //Add the current date to the array of completed dates
-        userObject.completedDates.push(date);
+            const isAlreadyCompleted = userObject.completedDates.some(item => item.date === date);
+        //Check so that the current object/level doesn't already exist in the array
+        if (!isAlreadyCompleted) {
 
-        //Stringify the updated user-object and save it to localstorage again
-        localStorage.setItem("game-user", JSON.stringify(userObject));
-        console.log(userObject);
-       }
-    }
-    setShowWinScreen(true);
+            const finalTime = `${minutes} minutes & ${seconds} seconds`;
+
+            //Add the current date to the array of completed dates
+            userObject.completedDates.push({
+                date: date,
+                title: title,
+                imageUrl: imageUrl,
+                timeTaken: finalTime});
+
+            //Stringify the updated user-object and save it to localstorage again
+            localStorage.setItem("game-user", JSON.stringify(userObject));
+            console.log(userObject);
+        }
+        }
+        setShowWinScreen(true);
     
     };
 
