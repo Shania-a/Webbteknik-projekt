@@ -38,7 +38,7 @@ function RootLayout({ nasaData, archiveData, handlePreviousDay }) {
 
 async function getAPIData(date = "") {
   const api_key = import.meta.env.VITE_NASA_API_KEY; 
-  const baseUrl = `https://api.nasa.gov/planetary/apod?api_key=${api_key}`;
+  const baseUrl = `https://api.nasa.gov/planetary/apod?api_key=${api_key}&thumbs=true`;
   const finalUrl = date ? `${baseUrl}&date=${date}` : baseUrl;
 
   const response = await fetch(finalUrl);
