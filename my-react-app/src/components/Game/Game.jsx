@@ -21,11 +21,16 @@ const Game = ({ imageUrl, title, date }) => {
     setIsIconFound(true);
 
     if (userObject) {
-       //Check so that the current date doesn't already exist in the array
-       if (!userObject.completedDates.includes(date)){
+
+        const isAlreadyCompleted = userObject.some(item => item.date === date);
+       //Check so that the current object/level doesn't already exist in the array
+       if (!isAlreadyCompleted) {
 
         //Add the current date to the array of completed dates
-        userObject.completedDates.push(date);
+        userObject.completedDates.push({
+            date: date,
+            title: title,
+            imageUrl: imageUrl});
 
         //Stringify the updated user-object and save it to localstorage again
         localStorage.setItem("game-user", JSON.stringify(userObject));
