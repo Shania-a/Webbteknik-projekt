@@ -9,7 +9,14 @@ function GameForm ({ onStartGame }) {
         e.preventDefault();
 
         if (username.trim().length > 0) {
-           localStorage.setItem("game-username", username); 
+            const newUser = {
+                userID: crypto.randomUUID(),
+                username: username,
+                completedDates: []
+            };
+
+
+           localStorage.setItem("game-user", JSON.stringify(newUser)); 
             //create new user as object with random ID
            onStartGame();
         } else {
