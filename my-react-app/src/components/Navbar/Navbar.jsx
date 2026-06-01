@@ -8,11 +8,11 @@ function NavbarTest({ handlePreviousDay }) {
   // Get current location for previous day
   const location = useLocation();
   return (
-    <Navbar expand="lg" className="bg-body-tertiary" data-bs-theme="dark">
+    <Navbar expand="lg" className="" data-bs-theme="dark">
       <Container>
         <Navbar.Brand as={NavLink} to="/">Spacefullness</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav" className="mt-3 mt-lg-0">
+        <Navbar.Collapse id="basic-navbar-nav" >
           <Nav className="me-auto">
             <Buttons as={NavLink} to="/" text="Daily Image"></Buttons>
             <Buttons as={NavLink} to="/archive" text="Archive"></Buttons>

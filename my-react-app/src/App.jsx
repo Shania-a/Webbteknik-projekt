@@ -20,11 +20,7 @@ function RootLayout({ nasaData, archiveData, handlePreviousDay }) {
   return (
     <Container style={{ marginTop: '20px' }}>
       <Row>
-      </Row>
-      <Row>
-        <Col>
           <Navbar handlePreviousDay={handlePreviousDay} />
-        </Col>
       </Row>
       <Row>
         <Col style={{ marginTop: '20px' }}>
