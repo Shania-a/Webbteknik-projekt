@@ -13,7 +13,7 @@ const DailyImage = ({ data }) => {
     <div className="daily-image-container">
       <div className="game-board">
 
-      <Game imageUrl={imageUrl} title={data.title} date={data.date} />
+        <Game imageUrl={imageUrl} title={data.title} date={data.date} />
 
         <div className="info-header">
           <h2>{data.title}</h2>
