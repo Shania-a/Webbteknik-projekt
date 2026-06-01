@@ -15,6 +15,19 @@ const DailyImage = ({ data }) => {
   return (
     <div className="game-board">
 
+        {/*Lil sidebar for da hints*/}
+        {isPlaying && (
+        <div className="sidebar-hints">
+          <p className="hints-title">Hints</p>
+          <div className="hints-icon-container">
+            <div className={`hints-wrapper ${isIconFound ? "is-disabled" : ""}`}>
+              <GameIcon />
+              <GameIcon />
+              <GameIcon />
+            </div>
+          </div>
+        </div>
+        )}
 
       <Game imageUrl={imageUrl} title={data.title} />
 
