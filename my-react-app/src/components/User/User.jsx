@@ -1,11 +1,6 @@
 import React from 'react';
+import CompletedLevels from '../CompletedLevels/CompletedLevels.jsx';
 
-const users = localStorage.getItem("game-user");
-if (users) {
-  console.log(users);
-} else {
-  console.log(0);
-}
 
 const User = () => {
   const userString = localStorage.getItem("game-user");
@@ -16,7 +11,8 @@ const User = () => {
         {userObject ? (
           <>
           <h1>{userObject.username}</h1>
-          <p>Completed Games: {}</p>
+          <p>Completed Games: {userObject.completedDates.length}</p>
+          <CompletedLevels completedDates={userObject.completedDates} />
           </>
         ) : (
           <p>No user yet</p>

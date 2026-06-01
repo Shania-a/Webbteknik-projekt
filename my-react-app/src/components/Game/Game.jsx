@@ -32,21 +32,26 @@ const Game = ({ imageUrl, title, date }) => {
     }
 
     const handleFindIcon = () => {
-    setIsIconFound(true);
+        setIsIconFound(true);
 
-    if (userObject) {
-       //Check so that the current date doesn't already exist in the array
-       if (!userObject.completedDates.includes(date)){
+        if (userObject) {
 
-        //Add the current date to the array of completed dates
-        userObject.completedDates.push(date);
+            const isAlreadyCompleted = userObject.completedDates.some(item => item.date === date);
+        //Check so that the current object/level doesn't already exist in the array
+        if (!isAlreadyCompleted) {
 
-        //Stringify the updated user-object and save it to localstorage again
-        localStorage.setItem("game-user", JSON.stringify(userObject));
-        console.log(userObject);
-       }
-    }
-    alert("GG WP, you found it!");
+            //Add the current date to the array of completed dates
+            userObject.completedDates.push({
+                date: date,
+                title: title,
+                imageUrl: imageUrl});
+
+            //Stringify the updated user-object and save it to localstorage again
+            localStorage.setItem("game-user", JSON.stringify(userObject));
+            console.log(userObject);
+        }
+        }
+        alert("GG WP, you found it!");
     
     };
 
