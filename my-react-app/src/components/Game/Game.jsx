@@ -4,6 +4,15 @@ import GameIcon from '../GameIcon/GameIcon.jsx';
 import starArtifact from '../../Assets/Images/star.png';
 import './Game.css';
 
+function seedHash(str) {
+    let hash = 0;
+    for (let index = 0; index < str.length; index++) {
+        hash = str.charCodeAt(index) + ((hash << 5) - hash);
+    }
+    const x = Math.sin(hash) * 10000;
+    return x - Math.floor(x);
+}
+
 const Game = ({ imageUrl, title, date }) => {
     const [isPlaying, setIsPlaying] = useState(false);
     const [showForm, setShowForm] = useState(false);
@@ -44,9 +53,16 @@ const Game = ({ imageUrl, title, date }) => {
       setShowForm(true);
     }};
 
+    const dateSeed = date;
 
-    const iconX = 30;
-    const iconY = 88;
+    const randomX = seedHash(dateSeed + "X");
+    const randomY = seedHash(dateSeed + "Y");
+
+    const iconX = 5 + (randomX * 90);
+    const iconY = 5 + (randomY * 90);
+
+    console.log(iconX, iconY)
+    
     return(
         <div className="game-board">
             
