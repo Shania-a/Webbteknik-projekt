@@ -9,8 +9,8 @@ import Container from 'react-bootstrap/Container';
 
 import Navbar from './components/Navbar/Navbar.jsx';
 import DailyImage from './components/DailyImage/DailyImage.jsx';
+import About from './components/About/About.jsx';
 import ArchiveSelect from './components/ArchiveSelect/ArchiveSelect.jsx'; 
-import AboutSection from './components/About/About.jsx';
 import UserManagement from './components/UserManagement/UserManagement.jsx';
 
 function RootLayout({ nasaData, archiveData, handlePreviousDay }) {
@@ -27,7 +27,6 @@ function RootLayout({ nasaData, archiveData, handlePreviousDay }) {
           <Outlet />
           <Row className="w-100 justify-content-center">
             <Col md={8} className="d-flex justify-content-center">
-              <AboutSection data={currentData} />
             </Col>
           </Row>
         </Col>
@@ -116,7 +115,8 @@ function App() {
           path: "/",
           element: (
             <>
-              {nasaData && <DailyImage data={nasaData} />}
+              {!loading && nasaData && <DailyImage data={nasaData} />}
+              {!loading && nasaData && <About data={nasaData} />}
             </>
           )
         },
@@ -125,9 +125,10 @@ function App() {
             element: (
               <Row>
                 <Col className="text-center">
-                  {archiveLoading && <p>Loading archive image...</p> && <div className="space-spinner"></div>}
+                  {archiveLoading && ( <> <p>Loading archive image...</p> <div className="space-spinner"></div> </> )}
                   <ArchiveSelect onDateSubmit={handleArchiveSubmit} />
-                  {archiveData && <DailyImage data={archiveData} />}
+                  {!archiveLoading && archiveData && <DailyImage data={archiveData} />}
+                  {archiveData && !archiveLoading && <About data={archiveData} />}
                 </Col>
               </Row>
             )

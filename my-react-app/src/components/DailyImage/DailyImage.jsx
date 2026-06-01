@@ -1,8 +1,5 @@
 import React from 'react';
-import { useState } from 'react';
-
 import './DailyImage.css';
-
 import Game from '../Game/Game.jsx';
 
 const DailyImage = ({ data }) => {
@@ -13,18 +10,18 @@ const DailyImage = ({ data }) => {
   const imageUrl = data.media_type === 'video' ? data.thumbnail_url : data.url;
 
   return (
-    <div className="game-board">
+    <div className="daily-image-container">
+      <div className="game-board">
 
       <Game imageUrl={imageUrl} title={data.title} date={data.date} />
 
-      <div className="info-header">
-        <h2>{data.title}</h2>
-        <p className="image-date">{data.date}</p>
+        <div className="info-header">
+          <h2>{data.title}</h2>
+          <p className="image-date">{data.date}</p>
+        </div>
+        
       </div>
-      
     </div>
-      
-    
   );
 };
 

@@ -1,5 +1,9 @@
-/* Grundläggande stilar för sidan */
-
+.daily-image-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
 
 .game-board {
   display: flex;
