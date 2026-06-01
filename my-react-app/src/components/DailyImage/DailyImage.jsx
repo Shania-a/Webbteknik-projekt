@@ -15,7 +15,7 @@ const DailyImage = ({ data }) => {
   return (
     <div className="game-board">
 
-      <Game imageUrl={imageUrl} title={data.title} />
+      <Game imageUrl={imageUrl} title={data.title} date={data.date} />
 
       <div className="info-header">
         <h2>{data.title}</h2>

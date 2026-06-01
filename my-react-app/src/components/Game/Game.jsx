@@ -3,12 +3,13 @@ import GameForm from '../GameForm/GameForm.jsx';
 import GameIcon from '../GameIcon/GameIcon.jsx';
 import starArtifact from '../../Assets/Images/star.png';
 
-const Game = ({ imageUrl, title }) => {
+const Game = ({ imageUrl, title, date }) => {
     const [isPlaying, setIsPlaying] = useState(false);
     const [showForm, setShowForm] = useState(false);
     const [isIconFound, setIsIconFound] = useState(false);
 
-    const hasSavedUser = localStorage.getItem("game-username");
+    const userString = localStorage.getItem("game-user");
+    const userObject = userString ? JSON.parse(userString) : null;
 
     //Function runs when the form is valid and saved
     const handleGameStart = () => {
@@ -18,11 +19,25 @@ const Game = ({ imageUrl, title }) => {
 
     const handleFindIcon = () => {
     setIsIconFound(true);
-    alert("GG WP, you found it!");
+
+    if (userObject) {
+       //Check so that the current date doesn't already exist in the array
+       if (!userObject.completedDates.includes(date)){
+
+        //Add the current date to the array of completed dates
+        userObject.completedDates.push(date);
+
+        //Stringify the updated user-object and save it to localstorage again
+        localStorage.setItem("game-user", JSON.stringify(userObject));
+        console.log(userObject);
+       }
     }
+    alert("GG WP, you found it!");
+    
+    };
 
     const handlePlayClick = () => {
-    if (hasSavedUser) {
+    if (userObject) {
       setIsPlaying(true);
     } else {
       setShowForm(true);
