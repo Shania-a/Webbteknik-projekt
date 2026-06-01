@@ -15,7 +15,9 @@ const CompletedLevels = ({ completedDates }) => {
                 >
                 <div>
                     <h5 className="mb-0">{game.title}</h5>
-                    <p className="text-muted">{game.date}</p>
+                    <p className="small">{game.date}</p>
+                    {/*If there is a stopwatch-time, include it */}
+                    <p className="small">{game.timeTaken}</p>
                 </div>
                 <img
                     src={game.imageUrl}
