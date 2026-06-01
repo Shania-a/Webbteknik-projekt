@@ -3,6 +3,9 @@ Game functionality:
     Reactivity when element is found
     Timer
     Hint system?
+    How many artifacts? and of what?
+    When all artifacts are found, what happens?
+    Something cute when you click the artifacts?
 
 Achive functionality:
     Players can choose a date and get a new image. X
@@ -13,8 +16,9 @@ Basic account in local storage:
     Players can see what imaegs they completed
     Switch players, so each user can save their scores
 
-Color check the img to get fitting hidden objects
+CSS styling:
+    Navbar needs a glowup
 
-CSS styling
-
-
+Other:
+    "About" only on "/" 
+    Color check the img to get fitting hidden objects
