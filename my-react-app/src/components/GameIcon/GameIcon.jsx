@@ -1,15 +1,13 @@
-import Image from 'react-bootstrap/Image';
+import React from 'react';
 import './GameIcon.css';
-import star from '../../Assets/Images/star.png';
 
-function GameIcon() {
+const GameIcon = ({ imageSrc }) => {
   return (
-    <Image 
-    src={star} 
-    alt="Hint star" 
-    className="game-icon" 
-    roundedCircle /> 
+    <img 
+    src={imageSrc} 
+    className="game-icon"
+    alt="Hint" /> 
   );
-}
+};
 
 export default GameIcon;

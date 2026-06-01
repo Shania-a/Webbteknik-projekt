@@ -42,12 +42,17 @@ async function getAPIData(date = "") {
   const finalUrl = date ? `${baseUrl}&date=${date}` : baseUrl;
 
   const response = await fetch(finalUrl);
-  return await response.json();
+  const result = await response.json();
+  if (!response.ok) {
+    throw new Error(result.error?.message || 'NASA API request failed');
+  }
+  return result;
 }
 
 function App() {
   const [nasaData, setNasaData] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   const [archiveData, setArchiveData] = useState(null);
   const [archiveLoading, setArchiveLoading] = useState(false);
@@ -55,9 +60,16 @@ function App() {
   useEffect(() => {
     async function startFetch() {
       setLoading(true);
-      const result = await getAPIData(); 
-      setNasaData(result); 
-      setLoading(false);
+      setError(null);
+      try {
+        const result = await getAPIData(); 
+        setNasaData(result);
+      } catch (err) {
+        console.error(err);
+        setError(err.message || 'Unable to load NASA data.');
+      } finally {
+        setLoading(false);
+      }
     }
     startFetch();
   }, []);
@@ -65,11 +77,14 @@ function App() {
   const handleArchiveSubmit = async (dateString) => {
     //Fetch the API data using the date sent from Archive
     setArchiveLoading(true);
+    setError(null);
     try {
       const result = await getAPIData(dateString); 
       setArchiveData(result); 
-    } catch (error) {
-      console.error(error);
+    } catch (err) {
+      console.error(err);
+      setError(err.message || 'Unable to load archive image.');
+      setArchiveData(null);
     } finally {
       setArchiveLoading(false);
     }
@@ -78,8 +93,8 @@ function App() {
   const handlePreviousDay = async (currentPath) => {
 
     const currentData = currentPath === '/archive' ? archiveData : nasaData;
-    console.log(currentData.date)
     if (!currentData || !currentData.date) return;
+    console.log(currentData.date)
     // Reformat the current date back into regular date() so we can have correct calendar handling for instance: 1th of May -1 = 30 April
     const currentDate = new Date(currentData.date);
     currentDate.setDate(currentDate.getDate() - 1);
@@ -90,6 +105,7 @@ function App() {
     console.log(previousDay);
 
     setArchiveLoading(true);
+    setError(null);
     // Fetch the image from the API and update the state corresponding to the users current route
     try {
       const result = await getAPIData(previousDay); 
@@ -98,8 +114,9 @@ function App() {
       } else {
         setNasaData(result);
       }
-    } catch (error) {
-      console.error(error);
+    } catch (err) {
+      console.error(err);
+      setError(err.message || 'Unable to load previous day image.');
     } finally {
       setArchiveLoading(false);
     }
@@ -154,6 +171,15 @@ function App() {
       <div className="loading-screen">
         <div className="space-spinner"></div>
         <p>Hämtar rymden hehe...</p>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="loading-screen">
+        <div className="space-spinner"></div>
+        <p>{error}</p>
       </div>
     );
   }

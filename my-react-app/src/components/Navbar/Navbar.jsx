@@ -20,13 +20,11 @@ function NavbarTest({ handlePreviousDay }) {
           </Nav>
           <Nav>
             <Buttons 
-            as={NavLink} 
-            to="#" 
-            className={({ isActive }) => "nav-link"}
-            text="Previous Day"
-            onClick={() => handlePreviousDay && handlePreviousDay(location.pathname)}
-            ></Buttons>
-            </Nav>
+              text="Previous Day"
+              className="nav-link"
+              onClick={() => handlePreviousDay && handlePreviousDay(location.pathname)}
+            />
+          </Nav>
         </Navbar.Collapse>
       </Container>
     </Navbar>
