@@ -4,6 +4,7 @@ import GameForm from '../GameForm/GameForm.jsx';
 import GameIcon from '../GameIcon/GameIcon.jsx';
 import starArtifact from '../../Assets/Images/star.png';
 import './Game.css';
+import WinSceen from '../WinScreen/WinScreen.jsx';
 
 // Hashes a a date string and transforms it into a float between 0-1
 function seedHash(date) {
@@ -22,9 +23,10 @@ const Game = ({ imageUrl, title, date }) => {
     const [isPlaying, setIsPlaying] = useState(false);
     const [showForm, setShowForm] = useState(false);
     const [isIconFound, setIsIconFound] = useState(false);
-
+    const [showWinScreen, setShowWinScreen] = useState(false);
+    const [gameFinalTime, setGameFinalTime] = useState('');
     //Setting up the hook-stopwatch, false-boolean sets default to stopped
-    const { seconds, minutes, start, pause, reset } = useStopwatch({ autoStart:false })
+    const { seconds, minutes, start, pause, reset } = useStopwatch({ autoStart:false });
 
     const userString = localStorage.getItem("game-user");
     const userObject = userString ? JSON.parse(userString) : null;
@@ -47,6 +49,8 @@ const Game = ({ imageUrl, title, date }) => {
         if (!isAlreadyCompleted) {
 
             const finalTime = `${minutes} minutes & ${seconds} seconds`;
+            setGameFinalTime(finalTime)
+            console.log(finalTime)
 
             //Add the current date to the array of completed dates
             userObject.completedDates.push({
@@ -60,7 +64,7 @@ const Game = ({ imageUrl, title, date }) => {
             console.log(userObject);
         }
         }
-        alert("GG WP, you found it!");
+        setShowWinScreen(true);
     
     };
 
@@ -74,11 +78,13 @@ const Game = ({ imageUrl, title, date }) => {
 
     const dateSeed = date;
 
+    //Run seedHash to genererate a reandom number
     const randomX = seedHash(dateSeed + "X");
     const randomY = seedHash(dateSeed + "Y");
 
-    const iconX = 5 + (randomX * 90);
-    const iconY = 5 + (randomY * 90);
+    // Calculate coordinates in percent 10-90% for css
+    const iconX = 10 + (randomX * 80);
+    const iconY = 10 + (randomY * 80);
 
     console.log(iconX, iconY)
     
@@ -143,7 +149,12 @@ const Game = ({ imageUrl, title, date }) => {
                 {showForm && (
                     <GameForm onStartGame={handleGameStart} />
                 )}
-
+                <WinSceen 
+                    show={showWinScreen} 
+                    handleClose={() => setShowWinScreen(false)} 
+                    date={date}
+                    timeTaken={gameFinalTime}
+                />
             </div>
         </div>
 
