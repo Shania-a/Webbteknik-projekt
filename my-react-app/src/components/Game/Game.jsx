@@ -36,6 +36,7 @@ const Game = ({ imageUrl, title, date }) => {
     start(); //Starts the stopwatch
     }
 
+    
     const handleFindIcon = () => {
         setIsIconFound(true);
         pause(); //"Stops" the stopwatch
@@ -100,7 +101,6 @@ const Game = ({ imageUrl, title, date }) => {
                 <p className="hints-title">Hints</p>
                 <div className="hints-icon-container">
                     <div className={`${isIconFound ? "is-disabled" : ""}`}>
-                        <GameIcon />
                         <GameIcon />
                     </div>
                 </div>
