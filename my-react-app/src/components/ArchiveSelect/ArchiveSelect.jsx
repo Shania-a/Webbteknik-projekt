@@ -33,6 +33,10 @@ export default function ArchiveSelect({ onDateSubmit }) {
 
         const chosenDate = new Date(correctDate);
         const today = new Date();
+
+        //Set time to midnight on chosenDate and today so calendar date is only thing compared
+        chosenDate.setHours(0, 0, 0, 0);
+        today.setHours(0, 0, 0, 0);
         // If date picked is after todays date, return  early and alert incorrect selection
         if (chosenDate > today) {
             alert("You are not allowed to view the future!");
@@ -54,23 +58,23 @@ export default function ArchiveSelect({ onDateSubmit }) {
             align="center"
             show={showDropdown}
             onToggle={(isOpen) => setShowDropdown(isOpen)}
+            autoClose="outside"
         >
-
-            {/* Själva knappen man klickar på för att öppna panelen */}
             <Dropdown.Toggle variant="outline-light" id="dropdown-custom-components" className="fw-bold">
-                Öppna kalenderarkiv
+                Open Calendar Select
             </Dropdown.Toggle>
             <Dropdown.Menu
                 className="bg-dark border-secondary p-3 shadow-lg"
-                style={{ width: '100%', maxWidth: '450px', minWidth: '320px' }}
-                autoClose="outside"
+                style={{ 
+                    width: '100%',
+                    maxWidth: '450px', 
+                    minWidth: '320px',
+                 }}
+                 align="center"
             >
                 <div className="text-light" style={{ maxWidth: '500px' }}>
-
+                    <h3>View Image For Selected Date</h3>
                     <Form.Group className="mb-3">
-                        <Form.Label className="small fw-bold text-muted text-uppercase" style={{ letterSpacing: '0.5px' }}>
-                            1. Select Year
-                        </Form.Label>
                         <Form.Select
                             className="bg-dark text-light border-secondary form-select-sm"
                             value={selectedYear}
@@ -87,9 +91,6 @@ export default function ArchiveSelect({ onDateSubmit }) {
                     </Form.Group>
 
                     <div className="mb-3">
-                        <Form.Label className="small fw-bold text-muted text-uppercase" style={{ letterSpacing: '0.5px' }}>
-                            2. Select Month
-                        </Form.Label>
                         <Row className="g-1">
                             {months.map((month, index) => {
                                 const isMonthSelected = selectedMonth === index;
@@ -114,9 +115,6 @@ export default function ArchiveSelect({ onDateSubmit }) {
                         </Row>
                     </div>
                     <div className="mb-4">
-                        <Form.Label className="small fw-bold text-muted text-uppercase" style={{ letterSpacing: '0.5px' }}>
-                            3. Select Day
-                        </Form.Label>
                         <div className="d-flex flex-wrap" style={{ gap: '0.25rem' }}>
                             {days.map((day) => {
                                 const isDaySelected = selectedDay === day;
@@ -147,7 +145,7 @@ export default function ArchiveSelect({ onDateSubmit }) {
                             style={{ fontSize: '0.9rem' }}
                             onClick={submitButton}
                         >
-                            Clicko
+                            Select Date
                         </Button>
                     </div>
                 </div>
