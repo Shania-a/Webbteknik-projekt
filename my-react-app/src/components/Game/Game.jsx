@@ -24,7 +24,7 @@ const Game = ({ imageUrl, title, date }) => {
     const [showForm, setShowForm] = useState(false);
     const [isIconFound, setIsIconFound] = useState(false);
     const [showWinScreen, setShowWinScreen] = useState(false);
-
+    const [gameFinalTime, setGameFinalTime] = useState('');
     //Setting up the hook-stopwatch, false-boolean sets default to stopped
     const { seconds, minutes, start, pause, reset } = useStopwatch({ autoStart:false });
 
@@ -49,6 +49,8 @@ const Game = ({ imageUrl, title, date }) => {
         if (!isAlreadyCompleted) {
 
             const finalTime = `${minutes} minutes & ${seconds} seconds`;
+            setGameFinalTime(finalTime)
+            console.log(finalTime)
 
             //Add the current date to the array of completed dates
             userObject.completedDates.push({
@@ -150,6 +152,7 @@ const Game = ({ imageUrl, title, date }) => {
                     show={showWinScreen} 
                     handleClose={() => setShowWinScreen(false)} 
                     date={date}
+                    timeTaken={gameFinalTime}
                 />
             </div>
         </div>

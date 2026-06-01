@@ -3,7 +3,7 @@ import { Modal, Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import Confetti from 'react-confetti';
 
-const WinSceen = ({ show, handleClose, date }) => {
+const WinSceen = ({ show, handleClose, date, timeTaken }) => {
 
     const navigate = useNavigate();
 
@@ -34,9 +34,7 @@ const WinSceen = ({ show, handleClose, date }) => {
             centered
             backdrop="static"
             keyboard={false}
-            
         >
-        
             <Modal.Header className="bg-primary bg-dark text-light">
                 <Modal.Title>Win</Modal.Title>
             </Modal.Header>
@@ -44,6 +42,8 @@ const WinSceen = ({ show, handleClose, date }) => {
             <Modal.Body className="text-center py-4 bg-dark text-light">
                 <p className="lead">Wow you finished:</p>
                 <p className="lead"><strong>{date}</strong>.</p>
+                <p className="lead">Time:</p>
+                <p className="text-info fw-bold fs-5">{timeTaken}</p>
             </Modal.Body>
             <Modal.Footer className="justify-content-center bg-dark text-light">
                 <Button variant="outline-light" onClick={handleClose}>
