@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import GameForm from '../GameForm/GameForm.jsx';
 import GameIcon from '../GameIcon/GameIcon.jsx';
 import starArtifact from '../../Assets/Images/star.png';
+import amongus from '../../Assets/Images/amongus.png';
+
 
 const Game = ({ imageUrl, title, date }) => {
     const [isPlaying, setIsPlaying] = useState(false);
