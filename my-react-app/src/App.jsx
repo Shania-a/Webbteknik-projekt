@@ -10,7 +10,7 @@ import Container from 'react-bootstrap/Container';
 import Navbar from './components/Navbar/Navbar.jsx';
 import DailyImage from './components/DailyImage/DailyImage.jsx';
 import About from './components/About/About.jsx';
-import ArchiveSelect from './components/ArchiveSelect/ArchiveSelect.jsx'; 
+import ArchiveSelect from './components/ArchiveSelect/ArchiveSelect.jsx';
 import UserManagement from './components/UserManagement/UserManagement.jsx';
 
 function RootLayout({ nasaData, archiveData, handlePreviousDay }) {
@@ -20,7 +20,7 @@ function RootLayout({ nasaData, archiveData, handlePreviousDay }) {
   return (
     <Container style={{ marginTop: '20px' }}>
       <Row>
-          <Navbar handlePreviousDay={handlePreviousDay} />
+        <Navbar handlePreviousDay={handlePreviousDay} />
       </Row>
       <Row>
         <Col style={{ marginTop: '20px' }}>
@@ -37,7 +37,7 @@ function RootLayout({ nasaData, archiveData, handlePreviousDay }) {
 
 
 async function getAPIData(date = "") {
-  const api_key = import.meta.env.VITE_NASA_API_KEY; 
+  const api_key = import.meta.env.VITE_NASA_API_KEY;
   const baseUrl = `https://api.nasa.gov/planetary/apod?api_key=${api_key}&thumbs=true`;
   const finalUrl = date ? `${baseUrl}&date=${date}` : baseUrl;
 
@@ -46,7 +46,7 @@ async function getAPIData(date = "") {
   if (!response.ok) {
     throw new Error(`NASA API svarade med felkod: ${response.status}`);
   }
-  
+
   return await response.json();
 }
 
@@ -60,8 +60,8 @@ function App() {
   useEffect(() => {
     async function startFetch() {
       setLoading(true);
-      const result = await getAPIData(); 
-      setNasaData(result); 
+      const result = await getAPIData();
+      setNasaData(result);
       setLoading(false);
     }
     startFetch();
@@ -71,8 +71,8 @@ function App() {
     //Fetch the API data using the date sent from Archive
     setArchiveLoading(true);
     try {
-      const result = await getAPIData(dateString); 
-      setArchiveData(result); 
+      const result = await getAPIData(dateString);
+      setArchiveData(result);
     } catch (error) {
       console.error(error);
     } finally {
@@ -97,9 +97,9 @@ function App() {
     setArchiveLoading(true);
     // Fetch the image from the API and update the state corresponding to the users current route
     try {
-      const result = await getAPIData(previousDay); 
+      const result = await getAPIData(previousDay);
       if (currentPath === '/archive') {
-        setArchiveData(result); 
+        setArchiveData(result);
       } else {
         setNasaData(result);
       }
@@ -112,25 +112,28 @@ function App() {
 
   const router = useMemo(() => {
     return createBrowserRouter([
-    {
-      path: "/",
-      element: <RootLayout nasaData={nasaData} archiveData={archiveData} handlePreviousDay={handlePreviousDay} />,
-      children: [
-        {
-          path: "/",
-          element: (
-            <>
-              {!loading && nasaData && <DailyImage data={nasaData} />}
-              {!loading && nasaData && <About data={nasaData} />}
-            </>
-          )
-        },
+      {
+        path: "/",
+        element: <RootLayout nasaData={nasaData} archiveData={archiveData} handlePreviousDay={handlePreviousDay} />,
+        children: [
+          {
+            path: "/",
+            element: (
+              <>
+                {!loading && nasaData && <DailyImage data={nasaData} />}
+                {!loading && nasaData && <About data={nasaData} />}
+              </>
+            )
+          },
           {
             path: "/archive",
             element: (
               <Row>
                 <Col className="text-center">
-                  {archiveLoading && ( <> <p>Loading archive image...</p> <div className="space-spinner"></div> </> )}
+                  {archiveLoading && (<>     <div className="loading-screen">
+                    <div className="space-spinner"></div>
+                    <p>Fetching Space HeHe...</p>
+                  </div> </>)}
                   <ArchiveSelect onDateSubmit={handleArchiveSubmit} />
                   {!archiveLoading && archiveData && <DailyImage data={archiveData} />}
                   {archiveData && !archiveLoading && <About data={archiveData} />}
@@ -143,7 +146,7 @@ function App() {
             element: (
               <Row>
                 <Col className="text-center">
-                  <UserManagement/>
+                  <UserManagement />
                 </Col>
               </Row>
             )
@@ -151,14 +154,14 @@ function App() {
         ]
       }
     ]);
-  }, [nasaData, archiveData, archiveLoading, handlePreviousDay]); 
+  }, [nasaData, archiveData, archiveLoading, handlePreviousDay]);
 
   // Snygga laddningsskärmen
   if (loading) {
     return (
       <div className="loading-screen">
         <div className="space-spinner"></div>
-        <p>Hämtar rymden hehe...</p>
+        <p>Fetching Space HeHe...</p>
       </div>
     );
   }
