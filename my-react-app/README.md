@@ -22,3 +22,5 @@ If you are developing a production application, we recommend using TypeScript wi
 ## !Don't run this on Google Chrome for risk of freezing or lag!
 
 ## npm install react-bootstrap bootstrap
+
+## npm install react-confetti
