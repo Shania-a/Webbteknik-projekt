@@ -5,6 +5,7 @@ import GameIcon from '../GameIcon/GameIcon.jsx';
 import starArtifact from '../../Assets/Images/star.png';
 import './Game.css';
 import WinSceen from '../WinScreen/WinScreen.jsx';
+import Button from 'react-bootstrap/Button';
 
 // Hashes a a date string and transforms it into a float between 0-1
 function seedHash(date) {
@@ -25,20 +26,24 @@ const Game = ({ imageUrl, title, date }) => {
     const [isIconFound, setIsIconFound] = useState(false);
     const [showWinScreen, setShowWinScreen] = useState(false);
     const [gameFinalTime, setGameFinalTime] = useState('');
+
+    //State to keep track of if hint button has been clicked
+    const [showHint, setShowHint] = useState(false);
+
     //Setting up the hook-stopwatch, false-boolean sets default to stopped
-    const { seconds, minutes, start, pause, reset } = useStopwatch({ autoStart:false });
+    const { seconds, minutes, start, pause, reset } = useStopwatch({ autoStart: false });
 
     const userString = localStorage.getItem("game-user");
     const userObject = userString ? JSON.parse(userString) : null;
 
     //Function runs when the form is valid and saved
     const handleGameStart = () => {
-    setShowForm(false); //Hides completed form
-    setIsPlaying(true); //Removes the blur
-    start(); //Starts the stopwatch
+        setShowForm(false); //Hides completed form
+        setIsPlaying(true); //Removes the blur
+        start(); //Starts the stopwatch
     }
 
-    
+
     const handleFindIcon = () => {
         setIsIconFound(true);
         pause(); //"Stops" the stopwatch
@@ -46,36 +51,38 @@ const Game = ({ imageUrl, title, date }) => {
         if (userObject) {
 
             const isAlreadyCompleted = userObject.completedDates.some(item => item.date === date);
-        //Check so that the current object/level doesn't already exist in the array
-        if (!isAlreadyCompleted) {
+            //Check so that the current object/level doesn't already exist in the array
+            if (!isAlreadyCompleted) {
 
-            const finalTime = `${minutes} minutes & ${seconds} seconds`;
-            setGameFinalTime(finalTime)
-            console.log(finalTime)
+                const finalTime = `${minutes} minutes & ${seconds} seconds`;
+                setGameFinalTime(finalTime)
+                console.log(finalTime)
 
-            //Add the current date to the array of completed dates
-            userObject.completedDates.push({
-                date: date,
-                title: title,
-                imageUrl: imageUrl,
-                timeTaken: finalTime});
+                //Add the current date to the array of completed dates
+                userObject.completedDates.push({
+                    date: date,
+                    title: title,
+                    imageUrl: imageUrl,
+                    timeTaken: finalTime
+                });
 
-            //Stringify the updated user-object and save it to localstorage again
-            localStorage.setItem("game-user", JSON.stringify(userObject));
-            console.log(userObject);
-        }
+                //Stringify the updated user-object and save it to localstorage again
+                localStorage.setItem("game-user", JSON.stringify(userObject));
+                console.log(userObject);
+            }
         }
         setShowWinScreen(true);
-    
+
     };
 
     const handlePlayClick = () => {
-    if (userObject) {
-      setIsPlaying(true);
-      start(); //Start the stopwatch 
-    } else {
-      setShowForm(true);
-    }};
+        if (userObject) {
+            setIsPlaying(true);
+            start(); //Start the stopwatch 
+        } else {
+            setShowForm(true);
+        }
+    };
 
     const dateSeed = date;
 
@@ -88,77 +95,90 @@ const Game = ({ imageUrl, title, date }) => {
     const iconY = 10 + (randomY * 80);
 
     console.log(iconX, iconY)
-    
-    return(
+
+    return (
         <div className="game-board">
-            
+
             {/*The blurry background*/}
             <div className="image-stage">
-            
-                <img
-                src={imageUrl}
-                alt=""
-                className="blur-bg"
-                aria-hidden="true"
-            />
 
-            {/*Lil sidebar for da hints*/}
-            {isPlaying && (
-            <div className="sidebar-hints">
-                <p className="hints-title">Hints</p>
-                <div className="hints-icon-container">
-                    <div className={`${isIconFound ? "is-disabled" : ""}`}>
-                        <GameIcon />
-                    </div>
-                </div>
-            </div>
-            )}
-
-            {/*The container in which we place the hidden artifacts*/}
-            <div className="image-wrapper">
                 <img
                     src={imageUrl}
-                    alt={title}
-                    className={`sharp-fg ${isPlaying ? "" : "is-blurred"}`}
+                    alt=""
+                    className="blur-bg"
+                    aria-hidden="true"
                 />
 
-                {/*Showing the hidden icon only when the game is ongoing/started */}
+                {/*Lil sidebar for da hints*/}
                 {isPlaying && (
-                    <img 
-                    src={starArtifact}
-                    alt="Hidden Icon" //lowkey not needed cus the image is hidden anyway
-                    className="hidden-artifact-icon"
-                    onClick={handleFindIcon}
-                    style={{
-                        left: `${iconX}%`,
-                        top: `${iconY}%`
-                    }}
-                    
-                    />
-                )}
-
-                {/* Play-button, only visible at the main page before any game has started or
-                 if a new user hasn't filled out the form yet*/}
-                {!isPlaying && !showForm && (
-                    <div className="play-overlay" onClick={handlePlayClick}>
-                    <span className="play-icon">▶</span>
+                    <div className="sidebar-hints">
+                        
+                        <div className="hints-icon-container">
+                            {showHint ? (
+                                /* Om hinten är klickad, visa GameIcon. 
+                                Om stjärnan dessutom hittats på spelplanen lägger vi på "is-disabled" */
+                                <div className={isIconFound ? "is-disabled" : ""}>
+                                    <GameIcon />
+                                </div>
+                            ) : (
+                                /* Annars visas knappen med texten "Hint" */
+                                <Button
+                                    variant="outline-light"
+                                    className="hint-trigger-btn"
+                                    onClick={() => setShowHint(true)}
+                                >
+                                    Hint
+                                </Button>
+                            )}
+                        </div>
                     </div>
                 )}
 
-                {/*Form only visible if showForm is true */}
-                {showForm && (
-                    <GameForm onStartGame={handleGameStart} />
-                )}
-                <WinSceen 
-                    show={showWinScreen} 
-                    handleClose={() => setShowWinScreen(false)} 
-                    date={date}
-                    timeTaken={gameFinalTime}
-                />
-            </div>
-        </div>
+                {/*The container in which we place the hidden artifacts*/}
+                <div className="image-wrapper">
+                    <img
+                        src={imageUrl}
+                        alt={title}
+                        className={`sharp-fg ${isPlaying ? "" : "is-blurred"}`}
+                    />
 
-    </div>
+                    {/*Showing the hidden icon only when the game is ongoing/started */}
+                    {isPlaying && (
+                        <img
+                            src={starArtifact}
+                            alt="Hidden Icon" //lowkey not needed cus the image is hidden anyway
+                            className="hidden-artifact-icon"
+                            onClick={handleFindIcon}
+                            style={{
+                                left: `${iconX}%`,
+                                top: `${iconY}%`
+                            }}
+
+                        />
+                    )}
+
+                    {/* Play-button, only visible at the main page before any game has started or
+                 if a new user hasn't filled out the form yet*/}
+                    {!isPlaying && !showForm && (
+                        <div className="play-overlay" onClick={handlePlayClick}>
+                            <span className="play-icon">▶</span>
+                        </div>
+                    )}
+
+                    {/*Form only visible if showForm is true */}
+                    {showForm && (
+                        <GameForm onStartGame={handleGameStart} />
+                    )}
+                    <WinSceen
+                        show={showWinScreen}
+                        handleClose={() => setShowWinScreen(false)}
+                        date={date}
+                        timeTaken={gameFinalTime}
+                    />
+                </div>
+            </div>
+
+        </div>
     );
 }
 
