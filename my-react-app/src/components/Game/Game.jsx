@@ -2,6 +2,20 @@ import React, { useState } from 'react';
 import GameForm from '../GameForm/GameForm.jsx';
 import GameIcon from '../GameIcon/GameIcon.jsx';
 import starArtifact from '../../Assets/Images/star.png';
+import './Game.css';
+
+// Hashes a a date string and transforms it into a float between 0-1
+function seedHash(date) {
+    let hash = 0;
+    // Hashing algoritm to convert string chars to numeric hash
+    for (let index = 0; index < date.length; index++) {
+        hash = date.charCodeAt(index) + ((hash << 5) - hash);
+    }
+    //Use a sine wave to turn our hash into a scrambled number and makes a big number to create more variance 
+    const x = Math.sin(hash) * 10000;
+    // Return only the decimals
+    return x - Math.floor(x);
+}
 
 const Game = ({ imageUrl, title, date }) => {
     const [isPlaying, setIsPlaying] = useState(false);
@@ -43,6 +57,16 @@ const Game = ({ imageUrl, title, date }) => {
       setShowForm(true);
     }};
 
+    const dateSeed = date;
+
+    const randomX = seedHash(dateSeed + "X");
+    const randomY = seedHash(dateSeed + "Y");
+
+    const iconX = 5 + (randomX * 90);
+    const iconY = 5 + (randomY * 90);
+
+    console.log(iconX, iconY)
+    
     return(
         <div className="game-board">
             
@@ -62,6 +86,7 @@ const Game = ({ imageUrl, title, date }) => {
                 <p className="hints-title">Hints</p>
                 <div className="hints-icon-container">
                     <div className={`${isIconFound ? "is-disabled" : ""}`}>
+                        <GameIcon />
                         <GameIcon />
                     </div>
                 </div>
@@ -83,6 +108,11 @@ const Game = ({ imageUrl, title, date }) => {
                     alt="Hidden Icon" //lowkey not needed cus the image is hidden anyway
                     className="hidden-artifact-icon"
                     onClick={handleFindIcon}
+                    style={{
+                        left: `${iconX}%`,
+                        top: `${iconY}%`
+                    }}
+                    
                     />
                 )}
 
