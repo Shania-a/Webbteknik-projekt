@@ -34,7 +34,7 @@ const Game = ({ imageUrl, title, date }) => {
     const [gameFinalTime, setGameFinalTime] = useState('');
 
     //Setting up the hook-stopwatch, false-boolean sets default to stopped
-    const { seconds, minutes, start, pause, reset } = useStopwatch({ autoStart:false });
+    const { seconds, minutes, start, pause, reset } = useStopwatch({ autoStart: false });
 
     const userString = localStorage.getItem("game-user");
     const userObject = userString ? JSON.parse(userString) : null;
@@ -124,7 +124,7 @@ const Game = ({ imageUrl, title, date }) => {
     
     return(
         <div className="game-board">
-            
+
             {/*The blurry background*/}
             <div className="image-stage">
             

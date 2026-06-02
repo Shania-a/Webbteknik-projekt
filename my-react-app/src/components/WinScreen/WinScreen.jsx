@@ -43,7 +43,7 @@ const WinSceen = ({ show, handleClose, date, timeTaken }) => {
                 <p className="lead">Wow you finished:</p>
                 <p className="lead"><strong>{date}</strong>.</p>
                 <p className="lead">Time:</p>
-                <p className="text-info fw-bold fs-5">{timeTaken}</p>
+                <p className="text-info fw-bold fs-5">{timeTaken && timeTaken.trim() !== "" ? timeTaken : "You alread have a completed time"}</p>
             </Modal.Body>
             <Modal.Footer className="justify-content-center bg-dark text-light">
                 <Button variant="outline-light" onClick={handleClose}>
