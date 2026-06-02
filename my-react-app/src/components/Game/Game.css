@@ -1,11 +1,9 @@
-/*Game hints positioning*/
 .sidebar-hints{
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-right: 2rem;
   z-index: 10;
-  animation: faceIn 0.8 ease forwards;
 }
 .hints-title{
   font-style:italic;
@@ -27,6 +25,15 @@
   position: absolute;
   width: 10%;
   height: 10%;
+  z-index: 5;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+.hidden-artifact-icon2{
+  position: absolute;
+  width: 1.5%;
+  height: 3%;
+  opacity: 0.5;
   z-index: 5;
   cursor: pointer;
   transition: transform 0.2s ease;
