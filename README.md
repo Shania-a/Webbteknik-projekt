@@ -12,25 +12,30 @@
 
 # Installation
     **1. Clone the repository**
-    ```
-    Clone: https://github.com/Shania-a/Webbteknik-projekt
+
+    ```bash
+    git clone https://github.com/Shania-a/Webbteknik-projekt
     ```
 
-    **2. Install**
+**2. Install**
+
     Navigate to the project directory and run the commands
+    
     ```
     cd my-react-app
     npm install
     ```
 
-    **3. API Key**
+**3. API Key**
+
     Create .env file in root folder "/my-react-app"
     Inside the .env file add:
     ```
     VITE_NASA_API_KEY=the_api_key
     ```
 
-    **4. Run the program**
+**4. Run the program**
+
     Run the program through Node
     ```
     npm run dev
