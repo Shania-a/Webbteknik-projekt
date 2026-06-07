@@ -3,12 +3,13 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { NavLink, useLocation } from 'react-router-dom';
 import Buttons from '../Buttons/Buttons.jsx';
+import './Navbar.css';
 
 function NavbarTest({ handlePreviousDay }) {
   // Get current location for previous day
   const location = useLocation();
   return (
-    <Navbar expand="lg" className="" data-bs-theme="dark">
+    <Navbar expand="lg" className="space-navbar" data-bs-theme="dark">
       <Container>
         <Navbar.Brand as={NavLink} to="/">Spacefullness</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
