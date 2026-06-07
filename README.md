@@ -63,7 +63,7 @@ Open the link from terminal.
 
 ---------------------------------------------------------------------------------
 
-## Installations
+## Dependencies
     mkdir tests + mkdir dist
 
     npm install react-router-dom
