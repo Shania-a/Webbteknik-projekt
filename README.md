@@ -1,6 +1,9 @@
 # Spacefullness
 
 ## Description
+    Spacefullness is a webbased game based on the classic game "Where's Waldo" exept in space.
+    Players are shown space images with hidden elements that they need to fine.
+    NASAs APOD API is used to fetch daily images and hidden elements are placed ontop the image. 
 
 ## Prerequisites
     Vite
@@ -8,21 +11,43 @@
     Node.js
 
 # Installation
-    ### 1. Clone the repository
-    
-    clone https://github.com/Shania-a/Webbteknik-projekt
-    
+    **1. Clone the repository**
+    ```
+    Clone: https://github.com/Shania-a/Webbteknik-projekt
+    ```
 
-    2. API Key
-    Create .env file in root folder "my-react-app"
-
-
+    **2. Install**
+    Navigate to the project directory and run the commands
+    ```
+    cd my-react-app
     npm install
+    ```
 
-## Tools and Libraries
+    **3. API Key**
+    Create .env file in root folder "/my-react-app"
+    Inside the .env file add:
+    ```
+    VITE_NASA_API_KEY=the_api_key
+    ```
+
+    **4. Run the program**
+    Run the program through Node
+    ```
+    npm run dev
+    ```
+    Open the link from terminal.
+
+## Tools, Libraries and Frameworks
+    React
+    Vite
+    React Bootstrap
+    React Router
+    React Timer Hook
 
 ## Authors
-
+    Gustav Helgesson Liljedahl
+    Alma Rangström
+    Shania Amin
 
 
 ---------------------------------------------------------------------------------
@@ -35,6 +60,8 @@
     npm install react-bootstrap bootstrap
 
     npm install react-confetti
+
+    npm install --save react-timer-hook
 
 ## The NASA API has risk of freezing or lag on Google Chrome!
 
