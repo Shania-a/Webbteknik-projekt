@@ -72,4 +72,4 @@
 
     npm install --save react-timer-hook
 
-## The NASA API has risk of freezing or lag on Google Chrome! Use another web browser if possible.
+# CAUTION! The NASA API tends to cause freezing or lag on Google Chrome! Use another web browser if possible.
