@@ -8,10 +8,11 @@
     Node.js
 
 # Installation
-    1. Clone the repository
-    ```
+    ### 1. Clone the repository
+    
     clone https://github.com/Shania-a/Webbteknik-projekt
-    ```
+    
+
     2. API Key
     Create .env file in root folder "my-react-app"
 
