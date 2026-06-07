@@ -1,9 +1,9 @@
 # Spacefullness
 
 ## Description
-    Spacefullness is a webbased game based on the classic game "Where's Waldo" exept in space.
-    Players are shown space images with hidden elements that they need to fine.
-    NASAs APOD API is used to fetch daily images and hidden elements are placed ontop the image. 
+Space-fullness is a web-based game based on the classic game "Where's Waldo", except in space. 
+Players are shown space images with hidden elements that they need to find.
+NASA's APOD API is used to fetch daily images, and hidden elements are placed on top of the image.
 
 ## Prerequisites
     Vite
