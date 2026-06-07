@@ -1,7 +1,7 @@
 # Spacefullness
 
 ## Description
-    Spacefullness is a web-based game based on the classic game "Where's Waldo" except in space.
+    Space-fullness is a web-based game based on the classic game "Where's Waldo" except in space.
     Players are shown space images with hidden elements that they need to find.
     NASAs APOD API is used to fetch daily images and author-created hidden elements are placed ontop of the image. 
 
@@ -12,39 +12,39 @@
 
 # Installation
 
- **1. Clone the repository**
+**1. Clone the repository**
 
 ```bash
-    git clone https://github.com/Shania-a/Webbteknik-projekt
+git clone https://github.com/Shania-a/Webbteknik-projekt
 ```
 
 **2. Install**
 
-    Navigate to the project directory and run the commands
+Navigate to the project directory and run the commands
     
 ```
-    cd my-react-app
-    npm install
+cd my-react-app
+npm install
 ```
 
 **3. API Key**
 
-    Create .env file in root folder "/my-react-app"
-    Inside the .env file add:
+Create .env file in root folder "/my-react-app"
+Inside the .env file add:
 
 ```
-    VITE_NASA_API_KEY=the_api_key
+VITE_NASA_API_KEY=the_api_key
 ```
 
 **4. Run the program**
 
-    Run the program through Node
+Run the program through Node
 
 ```
-    npm run dev
+npm run dev
 ```
 
-    Open the link from terminal.
+Open the link from terminal.
 
 ## Tools, Libraries and Frameworks
     React
@@ -54,9 +54,11 @@
     React Timer Hook
 
 ## Authors
-    Gustav Helgesson Liljedahl
-    Alma Rangström
-    Shania Amin
+**Gustav Helgesson Liljedahl** - [Gustav-HL](https://github.com/Gustav-HL)
+
+**Alma Rangström** - [swedishllama1](https://github.com/swedishllama1)
+
+**Shania Amin** - [Shania-a](https://github.com/Shania-a)
 
 
 ---------------------------------------------------------------------------------
