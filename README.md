@@ -55,7 +55,9 @@ Open the link from terminal.
 
 ## Authors
 **Gustav Helgesson Liljedahl** - [Gustav-HL](https://github.com/Gustav-HL)
+
 **Alma Rangström** - [swedishllama1](https://github.com/swedishllama1)
+
 **Shania Amin** - [Shania-a](https://github.com/Shania-a)
 
 
