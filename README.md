@@ -1,30 +1,39 @@
-### Description
+# Spacefullness
+
+## Description
+
+## Prerequisites
+    Vite
+    Git
+    Node.js
+
+# Installation
+    1. Clone the repository
+    ```
+    clone https://github.com/Shania-a/Webbteknik-projekt
+    ```
+    2. API Key
+    Create .env file in root folder "my-react-app"
 
 
-### Prerequisites
+    npm install
 
+## Tools and Libraries
 
-### Installation
-    Npm + env
-
-### Tools and Libraries
-
-
-### Authors
+## Authors
 
 
 
 ---------------------------------------------------------------------------------
 
-### Installations
+## Installations
+    mkdir tests + mkdir dist
 
-## mkdir tests + mkdir dist
+    npm install react-router-dom
 
-## npm install react-router-dom
+    npm install react-bootstrap bootstrap
 
-## npm install react-bootstrap bootstrap
-
-## npm install react-confetti
+    npm install react-confetti
 
 ## The NASA API has risk of freezing or lag on Google Chrome!
 
