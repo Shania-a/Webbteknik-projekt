@@ -11,7 +11,8 @@
     Node.js
 
 # Installation
-    **1. Clone the repository**
+
+ **1. Clone the repository**
 
     ```bash
     git clone https://github.com/Shania-a/Webbteknik-projekt
@@ -30,6 +31,7 @@
 
     Create .env file in root folder "/my-react-app"
     Inside the .env file add:
+    
     ```
     VITE_NASA_API_KEY=the_api_key
     ```
