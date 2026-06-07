@@ -54,9 +54,9 @@ Open the link from terminal.
     React Timer Hook
 
 ## Authors
-    Gustav Helgesson Liljedahl
-    Alma Rangström
-    Shania Amin
+Gustav Helgesson Liljedahl
+Alma Rangström
+Shania Amin
 
 
 ---------------------------------------------------------------------------------
