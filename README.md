@@ -20,16 +20,15 @@ git clone https://github.com/Shania-a/Webbteknik-projekt
 
 **2. Install**
 
-Navigate to the project directory and run the commands
+Navigate to the project directory and run the command:
     
 ```
-cd my-react-app
 npm install
 ```
 
 **3. API Key**
 
-Create .env file in root folder "/my-react-app"
+Create .env file in root folder "/WEBBTEKNIK-PROJEKT"
 Inside the .env file add:
 
 ```
